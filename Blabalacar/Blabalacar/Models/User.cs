@@ -7,9 +7,9 @@ namespace Blabalacar.Models;
 public class User
 {
     public int Id { get; set; }
-    [Required]
     public string Name { get; set; }
     public Role Role { get; set; }
     public bool IsVerification { get; set; }
-    public ICollection<UserTrip> UserTrips { get; set; }
+    public DateTime CreateDateUser { get; set; } = DateTime.Now;
+    public ICollection<UserTrip>? UserTrips { get; set; } = new List<UserTrip>();
 }

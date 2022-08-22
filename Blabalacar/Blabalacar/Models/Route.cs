@@ -4,8 +4,8 @@ namespace Blabalacar.Models;
 
 public class Route
 {
-    [Required]
+    public int Id { get; set; }
     public string StartRoute { get; set; }
-    [Required]
     public string EndRoute { get; set; }
+    public ICollection<Trip> Trips { get; set; } = new List<Trip>();
 }

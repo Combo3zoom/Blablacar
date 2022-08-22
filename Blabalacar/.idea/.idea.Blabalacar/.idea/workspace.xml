@@ -9,8 +9,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2729c1e-c54c-458c-b0eb-998b5f45dca2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Blabalacar/Controllers/TripController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Blabalacar/Controllers/UserTripController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Blabalacar/Database/BlalacarContext.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Blabalacar/Migrations/20220818221549_AddedModels.Designer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Blabalacar/Migrations/20220818221549_AddedModels.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Blabalacar/Migrations/BlalacarContextModelSnapshot.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blabalacar/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blabalacar/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blabalacar/Blabalacar.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Blabalacar.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Controllers/UserController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/Route.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Route.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/Trip.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Trip.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/UserTrip.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/UserTrip.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +36,12 @@
       </map>
     </option>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5330988bfaacf93f15e30f9b3dd6018a768f89da3b38d874fda77299c62164/DbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c9ca552eea9bb8fababbf1cd3f981cf68849ccc365dcca5627376f98e505c74/ControllerActionInvoker.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7d9a41d47547e1fe7fe548b21ab4de12cc2671170a023bc8c629017837eb5f4/ActionMethodExecutor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/faf4a4b37056302738a46865827c3d2d3b6b1b977603a3932b0cd749921118/Controller.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -36,13 +54,16 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="sqlserver.localdb&#10;sqlserver" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="XThreadsFramesViewSplitterKey" value="0.47735506" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected=".NET Launch Settings Profile.Blabalacar">
@@ -89,6 +110,15 @@
       <workItem from="1660645347632" duration="1575000" />
       <workItem from="1660664399018" duration="91000" />
       <workItem from="1660664530627" duration="1091000" />
+      <workItem from="1660667311373" duration="6958000" />
+      <workItem from="1660681096871" duration="777000" />
+      <workItem from="1660822104983" duration="1214000" />
+      <workItem from="1660856970580" duration="418000" />
+      <workItem from="1660857410658" duration="4106000" />
+      <workItem from="1660893998191" duration="10005000" />
+      <workItem from="1661084236298" duration="10990000" />
+      <workItem from="1661153377756" duration="5127000" />
+      <workItem from="1661162908208" duration="1974000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1660593486599</created>
@@ -97,7 +127,14 @@
       <option name="project" value="LOCAL" />
       <updated>1660593486599</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Entities and controller&#10;add entities and piece controller for user">
+      <created>1660668217351</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1660668217352</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -111,7 +148,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="development" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -120,6 +169,7 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="first commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="first commit" />
+    <MESSAGE value="Entities and controller&#10;add entities and piece controller for user" />
+    <option name="LAST_COMMIT_MESSAGE" value="Entities and controller&#10;add entities and piece controller for user" />
   </component>
 </project>
