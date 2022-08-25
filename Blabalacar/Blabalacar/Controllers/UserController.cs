@@ -4,37 +4,36 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Blabalacar.Controllers;
 [Route("[controller]")]
-public class UserController: Controller, IBaseCommand<User>
+public class UserController: Controller
 {
-    public List<User> Users = new List<User>(new[]
+    private readonly BlalacarContext _context;
+
+    public UserController(BlalacarContext context)
     {
-        new User(){Name = "Julian", Role = Role.User, IsVerification = true}
-        
-    });
-    private int GetNextId() => Users.Count == 0 ? 0 : Users.Max(user => user.Id) + 1;
+        _context = context;
+    }
+    private int GetNextId() => _context.User.Local.Count == 0 ? 0 : _context.User.Local.Max(user => user.Id) + 1;
 
     [HttpGet]
-    public IEnumerable<User> Get() => Users;
-
+    public IEnumerable<User> Get() => _context.User;
+    
     [HttpGet("{id:int}")]
     public IActionResult Get(int id)
     {
-        var user = Users.SingleOrDefault(user => user.Id == id);
+        var user = _context.User.SingleOrDefault(user => user.Id == id);
         if (user == null)
             return NotFound();
         return Ok(user);
     }
     [HttpPost]
-    public IActionResult Post(User user)
+    public IActionResult Post(CreateUserBody createUserBody)
     {
         if (!ModelState.IsValid)
-                return NotFound();
-        user.Id = GetNextId();
-        Users.Add(user);
-        // context.User.Add(user);
-        // context.SaveChanges();
+            return NotFound();
+        var user = new User(GetNextId(), createUserBody.Name, createUserBody.Role, createUserBody.IsVerification);
+        _context.User.Add(user);
+        _context.SaveChanges();
         return CreatedAtAction(nameof(Get),new{id=user.Id}, user);
-
     }
 
     [HttpPut]
@@ -42,23 +41,25 @@ public class UserController: Controller, IBaseCommand<User>
     {
         if (!ModelState.IsValid)
             return BadRequest();
-        var changedUser = Users.SingleOrDefault(storeUser => storeUser.Id == user.Id);
+        var changedUser = _context.User.SingleOrDefault(storeUser => storeUser.Id == user.Id);
         if (changedUser == null)
             return NotFound();
         changedUser.Name = user.Name;
         changedUser.Role = user.Role;
         changedUser.IsVerification = user.IsVerification;
         changedUser.UserTrips = user.UserTrips;
+        _context.SaveChanges();
         return Ok(changedUser);
     }
 
     [HttpDelete("{id:int}")]
     public IActionResult Delete(int id)
     {
-        var deleteUser = Users.SingleOrDefault(storeUser => storeUser.Id == id);
+        var deleteUser = _context.User.SingleOrDefault(storeUser => storeUser.Id == id);
         if (deleteUser == null)
             return BadRequest();
-        Users.Remove(deleteUser);
+        _context.User.Remove(deleteUser);
+        _context.SaveChanges();
         return Ok();
     }
 }

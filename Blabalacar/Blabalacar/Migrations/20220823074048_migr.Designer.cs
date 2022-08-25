@@ -4,6 +4,7 @@ using Blabalacar.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Blabalacar.Migrations
 {
     [DbContext(typeof(BlalacarContext))]
-    partial class BlalacarContextModelSnapshot : ModelSnapshot
+    [Migration("20220823074048_migr")]
+    partial class migr
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,14 +55,14 @@ namespace Blabalacar.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("DepartureAt")
+                    b.Property<DateTime>("CreateDateTrip")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DepartmentDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("RouteId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("TripCreatedAt")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -77,6 +79,9 @@ namespace Blabalacar.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTime>("CreateDateUser")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsVerification")
                         .HasColumnType("bit");
 
@@ -87,9 +92,6 @@ namespace Blabalacar.Migrations
 
                     b.Property<int>("Role")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("UserCreatedAt")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

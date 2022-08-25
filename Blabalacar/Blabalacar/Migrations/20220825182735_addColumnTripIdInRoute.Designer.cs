@@ -4,6 +4,7 @@ using Blabalacar.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Blabalacar.Migrations
 {
     [DbContext(typeof(BlalacarContext))]
-    partial class BlalacarContextModelSnapshot : ModelSnapshot
+    [Migration("20220825182735_addColumnTripIdInRoute")]
+    partial class addColumnTripIdInRoute
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,6 +41,9 @@ namespace Blabalacar.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("TripId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

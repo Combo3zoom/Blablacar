@@ -6,43 +6,47 @@ using Microsoft.AspNetCore.Mvc;
 using Route = Blabalacar.Models.Route;
 
 namespace Blabalacar.Controllers;
+
 [Route("[controller]")]
-public class TripController: Controller, IBaseCommand<Trip>
+public class TripController : Controller
 {
-    private List<Trip> Trips = new List<Trip>(new[]
+    private readonly BlalacarContext _context;
+    private int GetNextId() => _context.Trip.Local.Count == 0 ? 0 : _context.Trip.Local.Max(trip => trip.Id) + 1;
+
+    private int GetNextRouteId() =>
+        _context.Trip.Local.Count == 0 ? 0 : _context.Trip.Local.Max(trip => trip.Route.Id) + 1;
+
+    public TripController(BlalacarContext context)
     {
-        new Trip(){Route = new Route(){StartRoute = "Lviv", EndRoute = "Tryskavets"},
-            DepartmentDate = DateTime.Parse("14:20:00")}
-    });
-    private int GetNextId() => Trips.Count == 0 ? 0 : Trips.Max(trip => trip.Id) + 1;
-    private int GetNextRouteId() => Trips.Count == 0 ? 0 : Trips.Max(trip => trip.RouteId) + 1;
+        _context = context;
+    }
 
     [HttpGet]
-    public IEnumerable<Trip> Get() => Trips;
+    public IEnumerable<Trip> Get() => _context.Trip;
 
     [HttpGet("{id:int}")]
     public IActionResult Get(int id)
     {
-        var trip = Trips.SingleOrDefault(trip => trip.Id == id);
+        var trip = _context.Trip.SingleOrDefault(trip => trip.Id == id);
         if (trip == null)
             return NotFound();
         return Ok(trip);
     }
+
     [HttpPost]
-    public IActionResult Post([FromBody] Trip trip)
+    public IActionResult Post(CreateTripBody createTripBody)
     {
-        using (var context = new BlalacarContext())
-        {
-            if (!ModelState.IsValid)
-                return NotFound();
-            trip.Id = GetNextId();
-            trip.Route.Id = GetNextRouteId();
-            trip.Route.Trips.Add(trip);
-            Trips.Add(trip);
-            context.Trip.Add(trip);
-            context.SaveChanges();
-            return CreatedAtAction(nameof(Get),new{id=trip.Id}, trip);
-        }
+        if (!ModelState.IsValid)
+            return NotFound();
+        var nextIdTrip = GetNextId();
+        var route = new Route(GetNextRouteId(), createTripBody.StartRoute, createTripBody.EndRoute);
+        var trip = new Trip(nextIdTrip, route.Id, route, createTripBody.DepartureAt);
+        trip.Route.Trips!.Add(trip);
+        _context.Trip.Add(trip);
+        _context.SaveChanges();
+        var showTrip = new Trip(trip.Id, -trip.RouteId,
+            new Route(trip.Route.Id, trip.Route.StartRoute, trip.Route.EndRoute), trip.DepartureAt);
+        return CreatedAtAction(nameof(Get), new {id = trip.Id}, showTrip);
     }
 
     [HttpPut]
@@ -50,21 +54,25 @@ public class TripController: Controller, IBaseCommand<Trip>
     {
         if (!ModelState.IsValid)
             return BadRequest();
-        var changedtrip = Trips.SingleOrDefault(storeTrip => storeTrip.Id == trip.Id);
+        var changedtrip = _context.Trip.SingleOrDefault(storeTrip => storeTrip.Id == trip.Id);
         if (changedtrip == null)
             return NotFound();
         changedtrip.Route.StartRoute = trip.Route.StartRoute;
         changedtrip.Route.EndRoute = trip.Route.EndRoute;
+        changedtrip.DepartureAt = trip.DepartureAt;
+        changedtrip.UserTrips = trip.UserTrips;
+        _context.SaveChanges();
         return Ok(changedtrip);
     }
 
     [HttpDelete("{id:int}")]
     public IActionResult Delete(int id)
     {
-        var deleteTrip = Trips.SingleOrDefault(storeTrip => storeTrip.Id == id);
+        var deleteTrip = _context.Trip.SingleOrDefault(storeTrip => storeTrip.Id == id);
         if (deleteTrip == null)
             return BadRequest();
-        Trips.Remove(deleteTrip);
+        _context.Trip.Remove(deleteTrip);
+        _context.SaveChanges();
         return Ok();
     }
 }

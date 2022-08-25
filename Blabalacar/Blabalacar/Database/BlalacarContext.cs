@@ -27,6 +27,7 @@ public class BlalacarContext:DbContext
             .HasMaxLength(50)
             .IsRequired();
 
+
         modelBuilder.Entity<Trip>()
             .HasKey(trip => trip.Id);
         modelBuilder.Entity<Trip>()
@@ -35,11 +36,11 @@ public class BlalacarContext:DbContext
             .HasForeignKey(trip=>trip.RouteId)
             .OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<Trip>()
-            .Property(trip => trip.DepartmentDate)
+            .Property(trip => trip.DepartureAt)
             .IsRequired();
-        modelBuilder.Entity<Trip>()
-            .Property(trip => trip.RouteId)
-            .IsRequired();
+        // modelBuilder.Entity<Trip>()
+        //     .Property(trip => trip.RouteId)
+        //     .IsRequired();
             
 
         modelBuilder.Entity<Route>()
@@ -50,10 +51,6 @@ public class BlalacarContext:DbContext
         modelBuilder.Entity<Route>()
             .Property(route => route.EndRoute)
             .HasMaxLength(50);
-        modelBuilder.Entity<Route>()
-            .HasMany(r => r.Trips)
-            .WithOne(t => t.Route)
-            .OnDelete(DeleteBehavior.Cascade);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
