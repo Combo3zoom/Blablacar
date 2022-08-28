@@ -1,6 +1,7 @@
 using Blabalacar.Database;
 using Blabalacar.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blabalacar.Controllers;
 [Route("[controller]")]
@@ -15,12 +16,12 @@ public class UserController: Controller
     private int GetNextId() => _context.User.Local.Count == 0 ? 0 : _context.User.Local.Max(user => user.Id) + 1;
 
     [HttpGet]
-    public IEnumerable<User> Get() => _context.User;
+    public IEnumerable<User> Get() => _context.User.Include("UserTrips");
     
     [HttpGet("{id:int}")]
     public IActionResult Get(int id)
     {
-        var user = _context.User.SingleOrDefault(user => user.Id == id);
+        var user = _context.User.Include("UserTrips").SingleOrDefault(user => user.Id == id);
         if (user == null)
             return NotFound();
         return Ok(user);

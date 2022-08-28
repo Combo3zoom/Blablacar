@@ -16,12 +16,12 @@ public class UserTripController: Controller
     public IActionResult Post(int userId, int tripId)
     {
         if (!ModelState.IsValid)
-                return NotFound();
+            return NotFound();
         var user = _context.User.SingleOrDefault(stageUser => stageUser.Id == userId);
         var trip = _context.Trip.SingleOrDefault(stageTrip => stageTrip.Id == tripId);
         if (user == null || trip == null)
             return BadRequest();
-        var userTrip = new UserTrip() {TripId = tripId, UserId = userId};
+        var userTrip = new UserTrip(user, userId, trip, tripId);
         user.UserTrips!.Add(userTrip);
         trip.UserTrips!.Add(userTrip);
         _context.SaveChanges();

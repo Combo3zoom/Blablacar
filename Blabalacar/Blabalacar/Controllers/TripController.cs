@@ -3,6 +3,7 @@ using Blabalacar.Models;
 using Blabalacar.Database;
 using Blabalacar.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Route = Blabalacar.Models.Route;
 
 namespace Blabalacar.Controllers;
@@ -22,16 +23,17 @@ public class TripController : Controller
     }
 
     [HttpGet]
-    public IEnumerable<Trip> Get() => _context.Trip;
+    public IEnumerable<Trip> Get() => _context.Trip.Include("UserTrips").Include("Route");
 
     [HttpGet("{id:int}")]
     public IActionResult Get(int id)
     {
-        var trip = _context.Trip.SingleOrDefault(trip => trip.Id == id);
+        var trip = _context.Trip.Include("UserTrips").Include("Route").
+            SingleOrDefault(trip => trip.Id == id);
         if (trip == null)
             return NotFound();
         return Ok(trip);
-    }
+    } 
 
     [HttpPost]
     public IActionResult Post(CreateTripBody createTripBody)
@@ -44,9 +46,7 @@ public class TripController : Controller
         trip.Route.Trips!.Add(trip);
         _context.Trip.Add(trip);
         _context.SaveChanges();
-        var showTrip = new Trip(trip.Id, -trip.RouteId,
-            new Route(trip.Route.Id, trip.Route.StartRoute, trip.Route.EndRoute), trip.DepartureAt);
-        return CreatedAtAction(nameof(Get), new {id = trip.Id}, showTrip);
+        return CreatedAtAction(nameof(Get), new {id = trip.Id}, trip);
     }
 
     [HttpPut]
