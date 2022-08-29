@@ -1,5 +1,6 @@
 using Blabalacar.Database;
 using Blabalacar.Models;
+using Blabalacar.Validations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

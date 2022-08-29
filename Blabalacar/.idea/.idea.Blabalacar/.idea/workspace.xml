@@ -9,11 +9,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2729c1e-c54c-458c-b0eb-998b5f45dca2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Blabalacar/Validations/NameValidationAttribute.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blabalacar/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blabalacar/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blabalacar/Controllers/TripController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Controllers/TripController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Controllers/UserController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/User/CreateUserBody.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/User/CreateUserBody.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blabalacar/Models/User/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/User/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Validations/CustomValidationAttribute.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Validations/NameValidationAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Validations/NameValidationAttribute.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,7 +24,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="development" />
+        <entry key="$PROJECT_DIR$/.." value="back-end/validations" />
       </map>
     </option>
   </component>
@@ -32,6 +33,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c9ca552eea9bb8fababbf1cd3f981cf68849ccc365dcca5627376f98e505c74/ControllerActionInvoker.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7d9a41d47547e1fe7fe548b21ab4de12cc2671170a023bc8c629017837eb5f4/ActionMethodExecutor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/437dff7bf98c581e368abaf787674681552e2a799f21ceb0a0576471af5effdf/WebApplication.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/519d702c2430bd59c968c834a02af06dd74ee174ce53edd4c484d4ac2794a1/ValidationAttribute.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f5297661c332adde375e682e974228832372ef64d6fd9c55e716bce7f72c655/ResourceInvoker.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/faf4a4b37056302738a46865827c3d2d3b6b1b977603a3932b0cd749921118/Controller.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -218,6 +220,32 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Blabalacar/Controllers/UserController.cs</url>
+          <line>32</line>
+          <properties documentPath="C:\Users\Julian\RiderProjects\Blablacar\Blabalacar\Blabalacar\Controllers\UserController.cs" initialLine="32" containingFunctionPresentation="method 'Post'">
+            <startOffsets>
+              <option value="940" />
+            </startOffsets>
+            <endOffsets>
+              <option value="964" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Blabalacar/Validations/NameValidationAttribute.cs</url>
+          <line>18</line>
+          <properties documentPath="C:\Users\Julian\RiderProjects\Blablacar\Blabalacar\Blabalacar\Validations\NameValidationAttribute.cs" initialLine="18" containingFunctionPresentation="method 'IsValid'">
+            <startOffsets>
+              <option value="473" />
+            </startOffsets>
+            <endOffsets>
+              <option value="500" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
