@@ -26,13 +26,13 @@ public class TripController : Controller
     public async Task<IEnumerable<Trip>> Get() => _context.Trip.Include("UserTrips").Include("Route");
 
     [HttpGet("{id:int}")]
-    public async Task<IActionResult> Get(int id)
+    public Task<IActionResult> Get(int id)
     {
-        var trip = _context.Trip.Include("UserTrips").Include("Route").
+        var trip =  _context.Trip.Include("UserTrips").Include("Route").
             SingleOrDefault(trip => trip.Id == id);
         if (trip == null)
-            return NotFound();
-        return Ok(trip);
+            return Task.FromResult<IActionResult>(NotFound());
+        return Task.FromResult<IActionResult>(Ok(trip));
     } 
 
     [HttpPost]

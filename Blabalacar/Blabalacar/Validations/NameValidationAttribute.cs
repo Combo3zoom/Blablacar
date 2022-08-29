@@ -3,18 +3,22 @@ using System.Text.RegularExpressions;
 
 namespace Blabalacar.Validations;
 
+[AttributeUsage(AttributeTargets.Property | 
+                AttributeTargets.Field, AllowMultiple = false)]
 public class NameValidationAttribute: ValidationAttribute
 {
-    private string[] _allowdValues;
+    private readonly string _regex;
 
-    public NameValidationAttribute(string[] values)
+    public NameValidationAttribute(string regex)
     {
-        _allowdValues = values;
+        _regex = regex;
     }
 
     public override bool IsValid(object? value)
     {
-        var specialSymbols = "/^[a-z0-9_-]{3,16}$/";
-        return value != null && Regex.IsMatch(value.ToString()!, specialSymbols);
+        var a1 = value.ToString()!;
+        var b = Regex.IsMatch(a1, _regex);
+        var a = value != null && b;
+        return a;
     }
 }

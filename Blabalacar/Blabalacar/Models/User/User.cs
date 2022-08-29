@@ -10,7 +10,6 @@ public class User
 {
     public int Id { get; set; }
     [Required]
-    [NameValidation(new string[]{}, ErrorMessage = "Name is incorrect")]
     public string Name { get; set; } = null!;
 
     public Role Role { get; set; }
