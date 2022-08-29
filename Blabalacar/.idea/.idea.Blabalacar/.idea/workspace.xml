@@ -9,13 +9,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2729c1e-c54c-458c-b0eb-998b5f45dca2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Blabalacar/Validations/NameValidationAttribute.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blabalacar/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blabalacar/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Blabalacar.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Blabalacar.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blabalacar/Controllers/TripController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Controllers/TripController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Controllers/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Controllers/UserTripController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Controllers/UserTripController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/UserTrip.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/UserTrip.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/User/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/User/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Validations/CustomValidationAttribute.cs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,19 +197,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Blabalacar/Controllers/TripController.cs</url>
-          <line>30</line>
-          <properties documentPath="C:\Users\Julian\RiderProjects\Blablacar\Blabalacar\Blabalacar\Controllers\TripController.cs" initialLine="30" containingFunctionPresentation="method 'Get'">
-            <startOffsets>
-              <option value="886" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1001" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Blabalacar/Controllers/UserTripController.cs</url>
           <line>17</line>
