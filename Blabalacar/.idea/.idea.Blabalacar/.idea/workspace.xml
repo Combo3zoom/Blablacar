@@ -117,6 +117,7 @@
       <workItem from="1661439425419" duration="10105000" />
       <workItem from="1661510760540" duration="4641000" />
       <workItem from="1661686052679" duration="2151000" />
+      <workItem from="1661755078022" duration="298000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1660593486599</created>
@@ -153,7 +154,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661688584463</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="add validation">
+      <created>1661755376266</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1661755376266</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -192,7 +200,8 @@
     <MESSAGE value="database/controller&#10;connect to database and write rest controllers" />
     <MESSAGE value="I don't remember" />
     <MESSAGE value="smt changed" />
-    <option name="LAST_COMMIT_MESSAGE" value="smt changed" />
+    <MESSAGE value="add validation" />
+    <option name="LAST_COMMIT_MESSAGE" value="add validation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
