@@ -23,10 +23,10 @@ public class TripController : Controller
     }
 
     [HttpGet]
-    public IEnumerable<Trip> Get() => _context.Trip.Include("UserTrips").Include("Route");
+    public async Task<IEnumerable<Trip>> Get() => _context.Trip.Include("UserTrips").Include("Route");
 
     [HttpGet("{id:int}")]
-    public IActionResult Get(int id)
+    public async Task<IActionResult> Get(int id)
     {
         var trip = _context.Trip.Include("UserTrips").Include("Route").
             SingleOrDefault(trip => trip.Id == id);
