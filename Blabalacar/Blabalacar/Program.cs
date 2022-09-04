@@ -1,12 +1,16 @@
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Blabalacar.Database;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using  Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var opts = new JsonSerializerOptions { ReferenceHandler = ReferenceHandler.IgnoreCycles };
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -28,9 +32,19 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+Auto();
 
 app.MapControllers();
 
 app.Run();
+
+void Auto()
+{
+    app.UseAuthentication(); 
+    app.UseAuthorization();  
+
+}
+
+
+
 

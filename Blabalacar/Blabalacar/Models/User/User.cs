@@ -16,7 +16,6 @@ public class User
     public bool IsVerification { get; set; }
     public DateTime UserCreatedAt { get; set; } = DateTime.Now;
     public ICollection<UserTrip>? UserTrips { get; set; } = new List<UserTrip>();
-
     public User(int id, string name, Role role, bool isVerification)
     {
         Id = id;

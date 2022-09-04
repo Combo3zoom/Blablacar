@@ -8,7 +8,6 @@ public class BlalacarContext:DbContext
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        //видалення user і trip одночасно
         modelBuilder.Entity<UserTrip>()
             .HasKey(userTrip => new {userTrip.TripId, userTrip.UserId});
         modelBuilder.Entity<UserTrip>()
@@ -38,10 +37,7 @@ public class BlalacarContext:DbContext
         modelBuilder.Entity<Trip>()
             .Property(trip => trip.DepartureAt)
             .IsRequired();
-        // modelBuilder.Entity<Trip>()
-        //     .Property(trip => trip.RouteId)
-        //     .IsRequired();
-            
+
 
         modelBuilder.Entity<Route>()
             .HasKey(route => route.Id);
@@ -55,7 +51,7 @@ public class BlalacarContext:DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(@"Server=DESKTOP-OAMN13B;Database=Blalacar;Trusted_Connection=True");
+        optionsBuilder.UseSqlServer("Server=DESKTOP-OAMN13B;Database=Blalacar;Trusted_Connection=True");
     }
 
     public DbSet<UserTrip> UserTrips { get; set; }

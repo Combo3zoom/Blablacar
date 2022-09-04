@@ -9,12 +9,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2729c1e-c54c-458c-b0eb-998b5f45dca2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../TestRegister/TestRegister/.dockerignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestRegister/TestRegister/Context/UserContext.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestRegister/TestRegister/Controllers/UsersController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestRegister/TestRegister/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestRegister/TestRegister/Models/Tokens.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestRegister/TestRegister/Models/User.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestRegister/TestRegister/Repository/IJWTManagerRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestRegister/TestRegister/Repository/JWTManagerRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blabalacar/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blabalacar/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Controllers/TripController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Controllers/TripController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Controllers/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/User/CreateUserBody.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/User/CreateUserBody.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Blabalacar.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Blabalacar.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Controllers/IBaseCommand.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Database/BlalacarContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Database/BlalacarContext.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blabalacar/Models/User/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/User/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blabalacar/Validations/NameValidationAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Validations/NameValidationAttribute.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/appsettings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,6 +130,15 @@
       <workItem from="1661510760540" duration="4641000" />
       <workItem from="1661686052679" duration="2151000" />
       <workItem from="1661755078022" duration="298000" />
+      <workItem from="1661767913360" duration="4050000" />
+      <workItem from="1661879385585" duration="1709000" />
+      <workItem from="1661929302796" duration="2572000" />
+      <workItem from="1661942710124" duration="1900000" />
+      <workItem from="1661951186262" duration="850000" />
+      <workItem from="1662013992289" duration="1147000" />
+      <workItem from="1662199426123" duration="59000" />
+      <workItem from="1662221825659" duration="3299000" />
+      <workItem from="1662276520856" duration="440000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1660593486599</created>
@@ -163,7 +182,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661755376266</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="fix name validation">
+      <created>1661759710626</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1661759710626</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -203,7 +229,8 @@
     <MESSAGE value="I don't remember" />
     <MESSAGE value="smt changed" />
     <MESSAGE value="add validation" />
-    <option name="LAST_COMMIT_MESSAGE" value="add validation" />
+    <MESSAGE value="fix name validation" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix name validation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -233,19 +260,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Blabalacar/Validations/NameValidationAttribute.cs</url>
-          <line>18</line>
-          <properties documentPath="C:\Users\Julian\RiderProjects\Blablacar\Blabalacar\Blabalacar\Validations\NameValidationAttribute.cs" initialLine="18" containingFunctionPresentation="method 'IsValid'">
-            <startOffsets>
-              <option value="473" />
-            </startOffsets>
-            <endOffsets>
-              <option value="500" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
