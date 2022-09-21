@@ -1,11 +1,18 @@
 using Blabalacar.Models;
+using Blabalacar.Models.Auto;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using Route = Blabalacar.Models.Route;
 
 namespace Blabalacar.Database;
 
 public class BlalacarContext:DbContext
 {
+    private readonly IConfiguration _configuration;
+    public BlalacarContext(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<UserTrip>()
@@ -52,6 +59,7 @@ public class BlalacarContext:DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer("Server=DESKTOP-OAMN13B;Database=Blalacar;Trusted_Connection=True");
+        //_configuration.GetSection("ConnectionStrings:DefaultConnection").Value
     }
 
     public DbSet<UserTrip> UserTrips { get; set; }
@@ -59,4 +67,5 @@ public class BlalacarContext:DbContext
     public DbSet<Trip> Trip { get; set; }
     
     public DbSet<Route> Route { get; set; }
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
 }

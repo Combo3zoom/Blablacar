@@ -2,6 +2,7 @@ using Blabalacar.Database;
 using Blabalacar.Models;
 using Blabalacar.Database;
 using Blabalacar.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Route = Blabalacar.Models.Route;
@@ -9,6 +10,7 @@ using Route = Blabalacar.Models.Route;
 namespace Blabalacar.Controllers;
 
 [Route("[controller]")]
+[Authorize]
 public class TripController : Controller
 {
     private readonly BlalacarContext _context;
@@ -22,10 +24,10 @@ public class TripController : Controller
         _context = context;
     }
 
-    [HttpGet]
+    [HttpGet, AllowAnonymous]
     public async Task<IEnumerable<Trip>> Get() => _context.Trip.Include("UserTrips").Include("Route");
 
-    [HttpGet("{id:int}")]
+    [HttpGet("{id:int}"), AllowAnonymous]
     public Task<IActionResult> Get(int id)
     {
         var trip =  _context.Trip.Include("UserTrips").Include("Route").
@@ -36,7 +38,7 @@ public class TripController : Controller
     } 
 
     [HttpPost]
-    public IActionResult Post(CreateTripBody createTripBody)
+    public async Task<IActionResult> Post(CreateTripBody createTripBody)
     {
         if (!ModelState.IsValid)
             return NotFound();
@@ -45,12 +47,12 @@ public class TripController : Controller
         var trip = new Trip(nextIdTrip, route.Id, route, createTripBody.DepartureAt);
         trip.Route.Trips!.Add(trip);
         _context.Trip.Add(trip);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         return CreatedAtAction(nameof(Get), new {id = trip.Id}, trip);
     }
 
     [HttpPut]
-    public IActionResult Put(Trip trip)
+    public async Task<IActionResult> Put(Trip trip)
     {
         if (!ModelState.IsValid)
             return BadRequest();
@@ -61,18 +63,18 @@ public class TripController : Controller
         changedtrip.Route.EndRoute = trip.Route.EndRoute;
         changedtrip.DepartureAt = trip.DepartureAt;
         changedtrip.UserTrips = trip.UserTrips;
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         return Ok(changedtrip);
     }
 
     [HttpDelete("{id:int}")]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
         var deleteTrip = _context.Trip.SingleOrDefault(storeTrip => storeTrip.Id == id);
         if (deleteTrip == null)
             return BadRequest();
         _context.Trip.Remove(deleteTrip);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         return Ok();
     }
 }

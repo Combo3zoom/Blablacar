@@ -1,30 +1,38 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
-using System.Text.Json.Serialization;
-using Blabalacar.Validations;
+using Microsoft.AspNetCore.Identity;
 
 namespace Blabalacar.Models;
 
-public class User
+public class User:IdentityUser<Guid>
 {
     public int Id { get; set; }
     [Required]
-    public string Name { get; set; } = null!;
+    public string Name { get; set; } = string.Empty;
 
-    public Role Role { get; set; }
-    public bool IsVerification { get; set; }
-    public DateTime UserCreatedAt { get; set; } = DateTime.Now;
+    public Role Role { get; set; } = Role.User;
+    public bool IsVerification { get; set; } = false;
+    public DateTimeOffset UserCreatedAt { get; set; } = DateTime.Now;
     public ICollection<UserTrip>? UserTrips { get; set; } = new List<UserTrip>();
-    public User(int id, string name, Role role, bool isVerification)
+    
+    public byte[] PasswordHash { get; set; }
+    public byte[] PasswordSalt { get; set; }
+    public string RefreshToken { get; set; } = string.Empty;
+    public DateTimeOffset TokenCreated { get; set; }
+    public DateTimeOffset TokenExpires { get; set; }
+    public User(int id, string name)
     {
         Id = id;
         Name = name;
-        Role = role;
-        IsVerification = isVerification;
+    }
+    public User(int id, string name, byte[] passwordHash, byte[] passwordSalt)
+    {
+        Id = id;
+        Name = name;
+        PasswordHash = passwordHash;
+        PasswordSalt = passwordSalt;
     }
 
-    private User()
+    public User()
     {
         
     }
