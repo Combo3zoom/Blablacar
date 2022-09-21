@@ -14,8 +14,8 @@ public class UserTripController: Controller
     {
         _context = context;
     }
-    [HttpPost("{userId:int},{tripId:int}")]
-    public async Task<IActionResult> Post(int userId, int tripId)
+    [HttpPost("{userId:Guid},{tripId:Guid}")]
+    public async Task<IActionResult> Post(Guid userId, Guid tripId)
     {
         if (!ModelState.IsValid)
             return NotFound();
@@ -30,8 +30,8 @@ public class UserTripController: Controller
         return Ok();
     }
 
-    [HttpDelete("{userId:int}, {tripId:int}")]
-    public async Task<IActionResult> Delete(int userId, int tripId)
+    [HttpDelete("{userId:Guid}, {tripId:Guid}")]
+    public async Task<IActionResult> Delete(Guid userId, Guid tripId)
     {
         if (!ModelState.IsValid)
             return NotFound();

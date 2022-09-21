@@ -14,10 +14,7 @@ namespace Blabalacar.Controllers;
 public class TripController : Controller
 {
     private readonly BlalacarContext _context;
-    private int GetNextId() => _context.Trip.Local.Count == 0 ? 0 : _context.Trip.Local.Max(trip => trip.Id) + 1;
-
-    private int GetNextRouteId() =>
-        _context.Trip.Local.Count == 0 ? 0 : _context.Trip.Local.Max(trip => trip.Route.Id) + 1;
+    private Guid GetNextId() => new Guid();
 
     public TripController(BlalacarContext context)
     {
@@ -27,8 +24,8 @@ public class TripController : Controller
     [HttpGet, AllowAnonymous]
     public async Task<IEnumerable<Trip>> Get() => _context.Trip.Include("UserTrips").Include("Route");
 
-    [HttpGet("{id:int}"), AllowAnonymous]
-    public Task<IActionResult> Get(int id)
+    [HttpGet("{id:Guid}"), AllowAnonymous]
+    public Task<IActionResult> Get(Guid id)
     {
         var trip =  _context.Trip.Include("UserTrips").Include("Route").
             SingleOrDefault(trip => trip.Id == id);
@@ -43,7 +40,7 @@ public class TripController : Controller
         if (!ModelState.IsValid)
             return NotFound();
         var nextIdTrip = GetNextId();
-        var route = new Route(GetNextRouteId(), createTripBody.StartRoute, createTripBody.EndRoute);
+        var route = new Route(nextIdTrip, createTripBody.StartRoute, createTripBody.EndRoute);
         var trip = new Trip(nextIdTrip, route.Id, route, createTripBody.DepartureAt);
         trip.Route.Trips!.Add(trip);
         _context.Trip.Add(trip);
@@ -67,8 +64,8 @@ public class TripController : Controller
         return Ok(changedtrip);
     }
 
-    [HttpDelete("{id:int}")]
-    public async Task<IActionResult> Delete(int id)
+    [HttpDelete("{id:Guid}")]
+    public async Task<IActionResult> Delete(Guid id)
     {
         var deleteTrip = _context.Trip.SingleOrDefault(storeTrip => storeTrip.Id == id);
         if (deleteTrip == null)

@@ -16,13 +16,13 @@ public class UserController: Controller
     {
         _context = context;
     }
-    private int GetNextId() => _context.User.Local.Count == 0 ? 0 : _context.User.Local.Max(user => user.Id) + 1;
+    private Guid GetNextId() => new Guid();
 
     [HttpGet, AllowAnonymous]
     public IEnumerable<User> Get() => _context.User.Include("UserTrips");
     
-    [HttpGet("{id:int}"), AllowAnonymous]
-    public async Task<IActionResult> Get(int id)
+    [HttpGet("{id:Guid}"), AllowAnonymous]
+    public async Task<IActionResult> Get(Guid id)
     {
         var user = _context.User.Include("UserTrips").SingleOrDefault(user => user.Id == id);
         if (user == null)
@@ -44,7 +44,7 @@ public class UserController: Controller
     }
 
     [HttpPut]
-    public async Task<IActionResult> Put(User user)
+    public async Task<IActionResult> Put(UpdateUserBody user)
     {
         if (!ModelState.IsValid)
             return BadRequest();
@@ -54,13 +54,12 @@ public class UserController: Controller
         changedUser.Name = user.Name;
         changedUser.Role = user.Role;
         changedUser.IsVerification = user.IsVerification;
-        changedUser.UserTrips = user.UserTrips;
         await _context.SaveChangesAsync();
         return Ok(changedUser);
     }
 
-    [HttpDelete("{id:int}"), Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Delete(int id)
+    [HttpDelete("{id:Guid}"), Authorize(Roles = "Admin")]
+    public async Task<IActionResult> Delete(Guid id)
     {
         var deleteUser = _context.User.SingleOrDefault(storeUser => storeUser.Id == id);
         if (deleteUser == null)

@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Blabalacar.Models;
 
-public class User:IdentityUser<Guid>
+public class User: IdentityUser<Guid>
 {
-    public int Id { get; set; }
+    //public Guid Id { get; set; }
     [Required]
     public string Name { get; set; } = string.Empty;
 
@@ -19,12 +19,12 @@ public class User:IdentityUser<Guid>
     public string RefreshToken { get; set; } = string.Empty;
     public DateTimeOffset TokenCreated { get; set; }
     public DateTimeOffset TokenExpires { get; set; }
-    public User(int id, string name)
+    public User(Guid id, string name)
     {
         Id = id;
         Name = name;
     }
-    public User(int id, string name, byte[] passwordHash, byte[] passwordSalt)
+    public User(Guid id, string name, byte[] passwordHash, byte[] passwordSalt)
     {
         Id = id;
         Name = name;

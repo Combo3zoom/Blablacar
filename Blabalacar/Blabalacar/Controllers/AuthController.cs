@@ -6,6 +6,7 @@ using Blabalacar.Models;
 using Blabalacar.Models.Auto;
 using Blabalacar.Service;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -18,28 +19,34 @@ public class AuthController : Controller
 {
     public static User RegisterUser;
     private readonly BlalacarContext _context;
+    private readonly UserManager<IdentityUser> _userManager;
+    private readonly SignInManager<IdentityUser> _signInManager;
     private readonly IConfiguration _configuration;
     private readonly IRegisterUserService _registerUserService;
 
     public AuthController(IConfiguration configuration, IRegisterUserService registerUserService,
-        BlalacarContext context)
+        BlalacarContext context, UserManager<IdentityUser> userManager, 
+        SignInManager<IdentityUser> signInManager)
     {
         _configuration = configuration;
         _registerUserService = registerUserService;
         _context = context;
+        _userManager = userManager;
+        _signInManager = signInManager;
     }
 
     [HttpGet, Authorize]
     public ActionResult<string> GetMe()
     {
-        var userName = _registerUserService.GetName();
+        var userName = _registerUserService.GetId();
         return Ok(userName);
     }
 
-    private int GetNextId() => _context.User.Local.Count == 0 ? 0 : _context.User.Local.Max(user => user.Id) + 1;
+    private Guid GetNextId() => new Guid();
     [HttpPost("register")]
     public async Task<ActionResult<User>> Register(RegisterUserDto request)
     {
+        
         CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
         var newUser = new User(GetNextId(), request.Name, passwordHash, passwordSalt);
         RegisterUser = newUser;
@@ -79,11 +86,17 @@ public class AuthController : Controller
     [HttpPost("refresh-token")]
     public async Task<ActionResult<string>> RefreshToken()
     {
+        var currentIdUserCookies = _registerUserService.GetId();
+        var user = _context.User.SingleOrDefault(currentUser => currentUser.Id.ToString() == currentIdUserCookies);//why Tostring?
+        if (user == null)
+            return BadRequest("user not found");
+        
         var refreshToken = Request.Cookies["refreshToken"];
-        if (!RegisterUser.RefreshToken.Equals(refreshToken))
+        if (user.RefreshToken.Equals(refreshToken))
             return Unauthorized("Invalid Refresh token");
-        if (RegisterUser.TokenExpires < DateTime.Now)
+        if (user.TokenExpires < DateTime.Now)
             return Unauthorized("Token expired");
+        
         string token = CreateToken(RegisterUser);
         var newRefreshToken = GetRefreshToken();
         SetRefreshToken(newRefreshToken);
@@ -108,7 +121,7 @@ public class AuthController : Controller
         List<Claim> claims = new List<Claim>
         {
             new Claim(ClaimTypes.Name, registerUser.Name),
-            new Claim(ClaimTypes.Role, Role.User.ToString()),//?
+            new Claim(ClaimTypes.Role, Role.User.ToString()),
             new Claim(ClaimTypes.NameIdentifier, registerUser.Id.ToString())
         };
         var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(

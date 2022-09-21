@@ -2,5 +2,6 @@ namespace Blabalacar.Service;
 
 public interface IRegisterUserService
 {
-    public string GetName();
+    public string GetId();
+    public string GetRefreshToken();
 }

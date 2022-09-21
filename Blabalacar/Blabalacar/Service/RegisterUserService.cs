@@ -10,11 +10,17 @@ public class RegisterUserService:IRegisterUserService
     {
         _httpContextAccessor = httpContextAccessor;
     }
-    public string GetName()
+    public string GetId()
     {
         var result = string.Empty;
         if (_httpContextAccessor != null)
-            result = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
+            result = _httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier);
         return result;
+    }
+
+    public string GetRefreshToken()
+    {
+        var currentUserId = GetId();
+        return _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
     }
 }
