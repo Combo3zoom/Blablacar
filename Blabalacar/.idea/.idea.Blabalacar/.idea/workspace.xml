@@ -10,51 +10,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2729c1e-c54c-458c-b0eb-998b5f45dca2" name="Changes" comment="add json">
+    <list default="true" id="a2729c1e-c54c-458c-b0eb-998b5f45dca2" name="Changes" comment="connect identityClass">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blabalacar/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blabalacar/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blabalacar/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Controllers/AuthController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Controllers/TripController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Controllers/TripController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Controllers/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Controllers/UserTripController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Controllers/UserTripController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Database/BlalacarContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Database/BlalacarContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220818221549_AddedModels.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220818221549_AddedModels.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220822103251_smt.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220822103251_smt.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220822110413_foreignKeyRouteForTrip.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220822110413_foreignKeyRouteForTrip.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220823074048_migr.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220823074048_migr.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220823074658_migr_2.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220823074658_migr_2.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220823075521_migr_3.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220823075521_migr_3.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220825175940_renameDateTime.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220825175940_renameDateTime.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220825182735_addColumnTripIdInRoute.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220825182735_addColumnTripIdInRoute.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220825183110_removeColumnTripIdInRoute.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220825183110_removeColumnTripIdInRoute.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220825184456_removeLinkRouteInContext.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220825184456_removeLinkRouteInContext.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220831110003_unknow.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220831110003_unknow.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220904203735_Auto.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220904203735_Auto.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220905101944_smt2.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220905101944_smt2.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220905111903_new23.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220905111903_new23.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220915175023_updateDateTime.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220915175023_updateDateTime.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/BlalacarContextModelSnapshot.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/BaseEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/BaseEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/RefreshToken.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/RefreshToken.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/Role.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Role.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/Route.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Route.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/Trip/Trip.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Trip/Trip.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/BlalacarContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Migrations/BlalacarContextModelSnapshot.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blabalacar/Models/User/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/User/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/UserTrip.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/UserTrip.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blabalacar/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blabalacar/Service/IRegisterUserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Service/IRegisterUserService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blabalacar/Service/RegisterUserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Service/RegisterUserService.cs" afterDir="false" />
@@ -92,6 +52,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7d9a41d47547e1fe7fe548b21ab4de12cc2671170a023bc8c629017837eb5f4/ActionMethodExecutor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Blabalacar/Program.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/faf4a4b37056302738a46865827c3d2d3b6b1b977603a3932b0cd749921118/Controller.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9d4f4ac7db6d2c5d183ab2d92602280ed4349fd6e6a1b6313546b3d01fdab5/ServiceProvider.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -257,7 +218,7 @@
       <workItem from="1663430665970" duration="18000" />
       <workItem from="1663596626738" duration="680000" />
       <workItem from="1663656209546" duration="2649000" />
-      <workItem from="1663752591788" duration="17436000" />
+      <workItem from="1663752591788" duration="25779000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1660593486599</created>
@@ -329,7 +290,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663754822359</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="connect identityClass">
+      <created>1663793996419</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1663793996420</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -373,6 +341,7 @@
     <MESSAGE value="fix" />
     <MESSAGE value="fix all prog" />
     <MESSAGE value="add json" />
-    <option name="LAST_COMMIT_MESSAGE" value="add json" />
+    <MESSAGE value="connect identityClass" />
+    <option name="LAST_COMMIT_MESSAGE" value="connect identityClass" />
   </component>
 </project>

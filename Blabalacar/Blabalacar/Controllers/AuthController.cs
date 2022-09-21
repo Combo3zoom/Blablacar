@@ -17,16 +17,15 @@ namespace Blabalacar.Controllers;
 [ApiController]
 public class AuthController : Controller
 {
-    public static User RegisterUser;
     private readonly BlalacarContext _context;
-    private readonly UserManager<IdentityUser> _userManager;
-    private readonly SignInManager<IdentityUser> _signInManager;
+    private readonly UserManager<User> _userManager;
+    private readonly SignInManager<User> _signInManager;
     private readonly IConfiguration _configuration;
     private readonly IRegisterUserService _registerUserService;
 
     public AuthController(IConfiguration configuration, IRegisterUserService registerUserService,
-        BlalacarContext context, UserManager<IdentityUser> userManager, 
-        SignInManager<IdentityUser> signInManager)
+        BlalacarContext context, UserManager<User> userManager, 
+        SignInManager<User> signInManager)
     {
         _configuration = configuration;
         _registerUserService = registerUserService;
@@ -36,7 +35,7 @@ public class AuthController : Controller
     }
 
     [HttpGet, Authorize]
-    public ActionResult<string> GetMe()
+    public ActionResult<string> GetMyId()
     {
         var userName = _registerUserService.GetId();
         return Ok(userName);
@@ -46,42 +45,40 @@ public class AuthController : Controller
     [HttpPost("register")]
     public async Task<ActionResult<User>> Register(RegisterUserDto request)
     {
+        var newUser = new User{Id=GetNextId(), Name=request.Name, UserName = request.Name};
+        var result = await _userManager.CreateAsync(newUser, request.Password);
         
-        CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
-        var newUser = new User(GetNextId(), request.Name, passwordHash, passwordSalt);
-        RegisterUser = newUser;
-        _context.User.Add(newUser);
-        await _context.SaveChangesAsync();
-        return CreatedAtAction(nameof(GetMe),new{id=newUser.Id}, newUser);
+        if (!result.Succeeded)
+            return BadRequest(result.Errors);
+        
+        await _signInManager.SignInAsync(newUser, isPersistent: false);//life time cookies - after close web
+        
+        return CreatedAtAction(nameof(GetMyId),new{id=newUser.Id}, newUser);
     } 
 
     [HttpPost("login")]
     public async Task<ActionResult<string>> Login(RegisterUserDto request)
     {
-        RegisterUser = _context.User.SingleOrDefault(user=> user.Name==request.Name)!;
-        if (RegisterUser==null)
-            return BadRequest("User not found ");
-        if (!VerifyPasswordHash(request.Password, RegisterUser.PasswordHash, RegisterUser.PasswordSalt))
-            return BadRequest("incorrect password");
+        if (!ModelState.IsValid)
+            return BadRequest();
 
-        var token = CreateToken(RegisterUser);
-        var refreshToken = GetRefreshToken();
-        SetRefreshToken(refreshToken);
+        var user = await _context.User.SingleOrDefaultAsync(currentUser => currentUser.Name == request.Name);// <-- extra error
+        if (user==null)
+            return BadRequest("User don't found ");
+
+        var checkPassword = await _signInManager.PasswordSignInAsync(request.Name, request.Password, 
+            false, false);
+        if (!checkPassword.Succeeded)
+            return BadRequest("Incorrect password");
+
+        var result = await _signInManager.CanSignInAsync(user);
+
+        var token = _registerUserService.CreateAccessToken(user, _configuration);
+        _registerUserService.SetRefreshToken(user, Response);
         await _context.SaveChangesAsync();
         return Ok(token);
     }
     
-
-    private RefreshToken GetRefreshToken()
-    {
-        var refreshToken = new RefreshToken
-        {
-            Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
-            Created = DateTime.Now,
-            Expires = DateTime.Now.AddMinutes(5)
-        };
-        return refreshToken;
-    }
 
     [HttpPost("refresh-token")]
     public async Task<ActionResult<string>> RefreshToken()
@@ -92,61 +89,15 @@ public class AuthController : Controller
             return BadRequest("user not found");
         
         var refreshToken = Request.Cookies["refreshToken"];
-        if (user.RefreshToken.Equals(refreshToken))
+        if (!user.RefreshToken.Equals(refreshToken))
             return Unauthorized("Invalid Refresh token");
-        if (user.TokenExpires < DateTime.Now)
+        
+        if (user.TokenExpires < DateTimeOffset.Now)
             return Unauthorized("Token expired");
         
-        string token = CreateToken(RegisterUser);
-        var newRefreshToken = GetRefreshToken();
-        SetRefreshToken(newRefreshToken);
+        _registerUserService.SetRefreshToken(user, Response);
         await _context.SaveChangesAsync();
-        return Ok(token);
-    }
-    private void SetRefreshToken(RefreshToken newRefreshToken)
-    {
-        var cookieOptions = new CookieOptions
-        {
-            HttpOnly = true,
-            Expires = newRefreshToken.Expires
-        };
-        Response.Cookies.Append("refreshToken", newRefreshToken.Token, cookieOptions);
-        RegisterUser.RefreshToken = newRefreshToken.Token;
-        RegisterUser.TokenCreated = newRefreshToken.Created;
-        RegisterUser.TokenCreated = newRefreshToken.Expires;
+        return Ok(_registerUserService.CreateAccessToken(user, _configuration));
     }
 
-    private string CreateToken(User registerUser)
-    {
-        List<Claim> claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, registerUser.Name),
-            new Claim(ClaimTypes.Role, Role.User.ToString()),
-            new Claim(ClaimTypes.NameIdentifier, registerUser.Id.ToString())
-        };
-        var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
-            _configuration.GetSection("JWT:Key").Value));
-        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-        var token = new JwtSecurityToken(
-            claims: claims,
-            expires: DateTime.Now.AddMinutes(5),
-            signingCredentials: creds);
-        var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-        return jwt;
-    }
-
-    private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-    {
-        using var hmac = new HMACSHA512();
-        passwordSalt = hmac.Key;
-        passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-    }
-
-    private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
-    {
-        using var hmac = new HMACSHA512(passwordSalt);
-        var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-
-        return computedHash.SequenceEqual(passwordHash); //computedHash == passwordHash;
-    }
 } 

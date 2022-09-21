@@ -14,8 +14,6 @@ public class User: IdentityUser<Guid>
     public DateTimeOffset UserCreatedAt { get; set; } = DateTime.Now;
     public ICollection<UserTrip>? UserTrips { get; set; } = new List<UserTrip>();
     
-    public byte[] PasswordHash { get; set; }
-    public byte[] PasswordSalt { get; set; }
     public string RefreshToken { get; set; } = string.Empty;
     public DateTimeOffset TokenCreated { get; set; }
     public DateTimeOffset TokenExpires { get; set; }
@@ -23,13 +21,6 @@ public class User: IdentityUser<Guid>
     {
         Id = id;
         Name = name;
-    }
-    public User(Guid id, string name, byte[] passwordHash, byte[] passwordSalt)
-    {
-        Id = id;
-        Name = name;
-        PasswordHash = passwordHash;
-        PasswordSalt = passwordSalt;
     }
 
     public User()

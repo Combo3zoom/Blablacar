@@ -2,6 +2,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Blabalacar.Database;
+using Blabalacar.Models;
 using Blabalacar.Service;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -19,6 +20,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<IRegisterUserService, RegisterUserService>();
 builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddSwaggerGen(options =>
 {
     options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
@@ -43,7 +45,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = false//той хто користується
         };
     });
-
+builder.Services.AddIdentity<User, ApplicationRole>()
+    .AddEntityFrameworkStores<BlalacarContext>();
 builder.Services.AddDbContext<BlalacarContext>();// передає у конктруктор наш контекст
 builder.Services.AddControllersWithViews()
     .AddNewtonsoftJson(options =>
