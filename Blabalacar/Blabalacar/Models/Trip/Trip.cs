@@ -2,10 +2,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Blabalacar.Models;
 
-public class Trip
+public class Trip:BaseEntity
 {
-    public int Id { get; set; }
-    public int RouteId { get; set; }
+    public Guid Id { get; set; }
+    public Guid RouteId { get; set; }
     [Required]
     public Route Route { get; set; }
     [Required]
@@ -13,7 +13,7 @@ public class Trip
     public DateTime TripCreatedAt { get; set; } = DateTime.Now;
     public ICollection<UserTrip>? UserTrips { get; set; } = new List<UserTrip>();
 
-    public Trip(int id, int routeId, Route route, DateTime departureAt)
+    public Trip(Guid id, Guid routeId, Route route, DateTime departureAt)
     {
         Id = id;
         RouteId = routeId;

@@ -1,10 +1,12 @@
 using Blabalacar.Database;
 using Blabalacar.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blabalacar.Controllers;
 
 [Route("[controller]")]
+[Authorize]
 public class UserTripController: Controller
 {
     private readonly BlalacarContext _context;
@@ -12,8 +14,8 @@ public class UserTripController: Controller
     {
         _context = context;
     }
-    [HttpPost("{userId:int},{tripId:int}")]
-    public IActionResult Post(int userId, int tripId)
+    [HttpPost("Order a trip: {userId:Guid},{tripId:Guid}")]
+    public async Task<IActionResult> Post(Guid userId, Guid tripId)
     {
         if (!ModelState.IsValid)
             return NotFound();
@@ -24,12 +26,12 @@ public class UserTripController: Controller
         var userTrip = new UserTrip(user, userId, trip, tripId);
         user.UserTrips!.Add(userTrip);
         trip.UserTrips!.Add(userTrip);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync().ConfigureAwait(false);
         return Ok();
     }
 
-    [HttpDelete("{userId:int}, {tripId:int}")]
-    public IActionResult Delete(int userId, int tripId)
+    [HttpDelete("Cancel the trip: {userId:Guid}, {tripId:Guid}")]
+    public async Task<IActionResult> Delete(Guid userId, Guid tripId)
     {
         if (!ModelState.IsValid)
             return NotFound();
@@ -37,9 +39,9 @@ public class UserTripController: Controller
             stageUserTrip.UserId == userId && stageUserTrip.TripId == tripId);
         if (userTrip == null)
             return BadRequest();
-        _context.User.Remove(_context.User.Find(userTrip.UserId)!); 
-        _context.Trip.Remove(_context.Trip.Find(userTrip.TripId)!);
-        _context.SaveChanges();
+        _context.User.Remove((await _context.User.FindAsync(userTrip.UserId).ConfigureAwait(false))!); 
+        _context.Trip.Remove((await _context.Trip.FindAsync(userTrip.TripId).ConfigureAwait(false))!);
+        await _context.SaveChangesAsync().ConfigureAwait(false);
         return Ok();
     }
 }

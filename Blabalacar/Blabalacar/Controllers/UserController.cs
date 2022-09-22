@@ -1,67 +1,127 @@
+using System.Linq;
+using System.Security.Claims;
 using Blabalacar.Database;
 using Blabalacar.Models;
+using Blabalacar.Repository;
 using Blabalacar.Validations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Blabalacar.Controllers;
 [Route("[controller]")]
+[Authorize]
 public class UserController: Controller
 {
-    private readonly BlalacarContext _context;
+    private readonly IUserRepository<UserTrip, Guid> _userRepository;
+    private readonly IRepository<Trip, Guid> _tripRepository;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public UserController(BlalacarContext context)
+    public UserController(IUserRepository<UserTrip, Guid> userRepository,
+        IRepository<Trip, Guid> tripRepository, IHttpContextAccessor httpContextAccessor)
     {
-        _context = context;
+        _userRepository = userRepository;
+        _tripRepository = tripRepository;
+        _httpContextAccessor = httpContextAccessor;
     }
-    private int GetNextId() => _context.User.Local.Count == 0 ? 0 : _context.User.Local.Max(user => user.Id) + 1;
+    private Guid GetNextId() => new Guid();
 
-    [HttpGet]
-    public IEnumerable<User> Get() => _context.User.Include("UserTrips");
+    [HttpGet, AllowAnonymous]
+    public IEnumerable<User> Get() => _userRepository.GetAll().Result;
     
-    [HttpGet("{id:int}")]
-    public IActionResult Get(int id)
+    [HttpGet("{id:Guid}"), AllowAnonymous]
+    public async Task<IActionResult> Get(Guid id)
     {
-        var user = _context.User.Include("UserTrips").SingleOrDefault(user => user.Id == id);
-        if (user == null)
-            return NotFound();
+        var user = _userRepository.GetById(id);
         return Ok(user);
     }
-    [HttpPost]
-    public IActionResult Post(CreateUserBody createUserBody)
+    [HttpPost("me/join to trip/{tripId:Guid}")]
+    public async Task<IActionResult> JoinToTrip(Guid tripId)
     {
+        var userId = new Guid(_httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier));
+        
         if (!ModelState.IsValid)
             return NotFound();
-        var user = new User(GetNextId(), createUserBody.Name, createUserBody.Role, createUserBody.IsVerification);
-        _context.User.Add(user);
-        _context.SaveChanges();
-        return CreatedAtAction(nameof(Get),new{id=user.Id}, user);
+
+        var user = _userRepository.GetById(userId).Result;
+        var trip = _tripRepository.GetById(tripId).Result;
+        
+        if (user == null || trip == null)
+            return BadRequest("user or trip don't exist");
+        
+        var userTrip = new UserTrip(user, userId, trip, tripId);
+        
+        user.UserTrips!.Add(userTrip);
+        trip.UserTrips!.Add(userTrip);
+        await _userRepository.Save().ConfigureAwait(false);
+        
+        return Ok();
     }
 
-    [HttpPut]
-    public IActionResult Put(User user)
+    [HttpPut, Authorize(Roles="Admin")]
+    public async Task<IActionResult> Put(UpdateUserBody user)
     {
         if (!ModelState.IsValid)
-            return BadRequest();
-        var changedUser = _context.User.SingleOrDefault(storeUser => storeUser.Id == user.Id);
+            return BadRequest("Incorrect input dates");
+
+        var changedUser = _userRepository.GetById(user.Id).Result;
         if (changedUser == null)
-            return NotFound();
+            return NotFound("user don't exist");
+        
         changedUser.Name = user.Name;
         changedUser.Role = user.Role;
         changedUser.IsVerification = user.IsVerification;
-        changedUser.UserTrips = user.UserTrips;
-        _context.SaveChanges();
+        await _userRepository.Save().ConfigureAwait(false);
+        
         return Ok(changedUser);
     }
 
-    [HttpDelete("{id:int}")]
-    public IActionResult Delete(int id)
+    [HttpDelete("{userId:Guid}"), Authorize(Roles = "Admin")]
+    public async Task<IActionResult> UserDelete(Guid userId)
     {
-        var deleteUser = _context.User.SingleOrDefault(storeUser => storeUser.Id == id);
+        var deleteUser = _userRepository.GetById(userId).Result;
         if (deleteUser == null)
-            return BadRequest();
-        _context.User.Remove(deleteUser);
-        _context.SaveChanges();
+            return BadRequest("Incorrect Id");
+        
+        Response.Cookies.Delete("refreshToken");// <--- how to delete cookies in other user
+        await _userRepository.Delete(deleteUser).ConfigureAwait(false);
+        await _userRepository.Save().ConfigureAwait(false);
+        
+        return Ok();
+    }
+    [HttpDelete("me")]
+    public async Task<IActionResult> SelfDelete()
+    {
+        var currentUserId = new Guid(_httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier));
+        var deleteUser = _userRepository.GetById(currentUserId);
+        if (deleteUser == null)
+            return BadRequest("Incorrect Id");
+        
+        Response.Cookies.Delete("refreshToken");// <--- how to delete cookies in other user
+        await _userRepository.Delete(await deleteUser.ConfigureAwait(false)).ConfigureAwait(false);
+        await _userRepository.Save().ConfigureAwait(false);
+        
+        return Ok();
+    }
+    
+
+    [HttpDelete("me/trips/{tripId:Guid}")]
+    public async Task<IActionResult> OrderTripDelete(Guid tripId)
+    {
+        var userId = new Guid(_httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier));
+        
+        if (!ModelState.IsValid)
+            return NotFound("Use didn't found");
+
+        var userTrip = _userRepository.GetFirstAndSecondModel(userId, tripId).Result;
+        
+        if (userTrip == null)
+            return BadRequest("user wasn't attached to the trip");
+
+        await _userRepository.ConnectionBetweenUserAndTripDelete(userTrip).ConfigureAwait(false);
+
+        await _userRepository.Save().ConfigureAwait(false);
+        
         return Ok();
     }
 }

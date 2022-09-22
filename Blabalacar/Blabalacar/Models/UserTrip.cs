@@ -6,11 +6,11 @@ public class UserTrip
 {
 
     public User User { get; set; }
-    public int UserId { get; set; }
+    public Guid UserId { get; set; }
     public Trip Trip { get; set; }
-    public int TripId { get; set; }
+    public Guid TripId { get; set; }
 
-    public UserTrip(User user, int userId, Trip trip, int tripId)
+    public UserTrip(User user, Guid userId, Trip trip, Guid tripId)
     {
         User = user;
         UserId = userId;

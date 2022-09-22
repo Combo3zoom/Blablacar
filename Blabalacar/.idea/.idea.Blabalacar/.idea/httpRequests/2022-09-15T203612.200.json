@@ -1,0 +1,21 @@
+{
+  "args": {},
+  "data": "",
+  "files": {
+    "data": "{\n  \"name\": \"my-name\",\n  \"params\": [1, 2, 3]\n}"
+  },
+  "form": {
+    "element-name": "Name"
+  },
+  "headers": {
+    "Accept-Encoding": "gzip,deflate",
+    "Content-Length": "360",
+    "Content-Type": "multipart/form-data; boundary=WebAppBoundary",
+    "Host": "httpbin.org",
+    "User-Agent": "Apache-HttpClient/4.5.13 (Java/11.0.13)",
+    "X-Amzn-Trace-Id": "Root=1-6323628c-3b0fe71110e7fe29613ef873"
+  },
+  "json": null,
+  "origin": "45.87.88.158",
+  "url": "https://httpbin.org/post"
+}

@@ -16,9 +16,6 @@ public class NameValidationAttribute: ValidationAttribute
 
     public override bool IsValid(object? value)
     {
-        var a1 = value.ToString()!;
-        var b = Regex.IsMatch(a1, _regex);
-        var a = value != null && b;
-        return a;
+        return value != null && Regex.IsMatch(value.ToString()!, _regex);;
     }
 }

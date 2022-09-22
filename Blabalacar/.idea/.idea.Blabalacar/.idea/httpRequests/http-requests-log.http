@@ -1,0 +1,340 @@
+GET https://httpbin.org/ip
+Accept: application/json
+
+<> 2022-09-15T225912.200.json
+
+###
+
+POST https://httpbin.org/post
+Content-Type: application/json
+
+{
+  "id": d0108781-84ff-4145-84c1-9d20ee0a583d,
+  "price": 14,
+  "ts": 1663271900,
+  "value": "content"
+}
+
+<> 2022-09-15T225821.200.json
+
+###
+
+POST https://httpbin.org/post
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="element-name"
+Content-Type: text/plain
+
+Name
+--WebAppBoundary
+Content-Disposition: form-data; name="data"; filename="data.json"
+Content-Type: application/json
+
+< C:\Users\Julian\AppData\Local\Temp\http_request_input_file6.txt
+--WebAppBoundary--
+
+<> 2022-09-15T225820.200.json
+
+###
+
+POST https://httpbin.org/post
+Content-Type: application/x-www-form-urlencoded
+
+id=999&value=content
+
+<> 2022-09-15T225819.200.json
+
+###
+
+POST https://httpbin.org/post
+Content-Type: application/json
+
+{
+  "id": 999,
+  "value": "content"
+}
+
+<> 2022-09-15T225818.200.json
+
+###
+
+GET http://localhost:7208/User
+Content-Type: application/json
+
+###
+
+GET http://localhost:7208/User
+Content-Type: application/json
+
+###
+
+GET http://localhost:7208/User
+Content-Type: application/json
+
+###
+
+GET http://localhost:7208/User
+Content-Type: application/json
+Host: smt_post.com
+
+###
+
+GET http://localhost:7208/User
+Content-Type: application/json
+Host: smt_post.com
+
+###
+
+HEAD http://localhost:7208/api/item
+Content-Type: application/json
+Host: smt_post.com
+
+###
+
+HEAD http://localhost:7208/api/item
+Content-Type: application/json
+Host: smt_post.com
+
+###
+
+HEAD http://localhost:7208/api/item
+Content-Type: application/json
+Host: smt_post.com
+
+###
+
+HEAD http://localhost:80/api/item
+Content-Type: application/json
+Host: smt_post.com
+
+###
+
+HEAD http://localhost:80/api/item
+Content-Type: application/json
+Host: smt_post.com
+
+###
+
+POST https://httpbin.org/post
+Content-Type: application/json
+
+{
+  "id": 78a3e2ab-27ba-450b-a44b-9f4f294bd4d7,
+  "price": 364,
+  "ts": 1663263478,
+  "value": "content"
+}
+
+<> 2022-09-15T203759.200.json
+
+###
+
+POST https://httpbin.org/post
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="element-name"
+Content-Type: text/plain
+
+Name
+--WebAppBoundary
+Content-Disposition: form-data; name="data"; filename="data.json"
+Content-Type: application/json
+
+< C:\Users\Julian\AppData\Local\Temp\http_request_input_file8.txt
+--WebAppBoundary--
+
+<> 2022-09-15T203758-1.200.json
+
+###
+
+POST https://httpbin.org/post
+Content-Type: application/x-www-form-urlencoded
+
+id=999&value=content
+
+<> 2022-09-15T203758.200.json
+
+###
+
+POST https://httpbin.org/post
+Content-Type: application/json
+
+{
+  "id": 999,
+  "value": "content"
+}
+
+<> 2022-09-15T203757.200.json
+
+###
+
+POST https://httpbin.org/post
+Content-Type: application/json
+
+{
+  "id": 08e0b3d4-c530-45ea-8397-a7417a7df760,
+  "price": 435,
+  "ts": 1663263435,
+  "value": "content"
+}
+
+<> 2022-09-15T203715-1.200.json
+
+###
+
+POST https://httpbin.org/post
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="element-name"
+Content-Type: text/plain
+
+Name
+--WebAppBoundary
+Content-Disposition: form-data; name="data"; filename="data.json"
+Content-Type: application/json
+
+< C:\Users\Julian\AppData\Local\Temp\http_request_input_file2.txt
+--WebAppBoundary--
+
+<> 2022-09-15T203715.200.json
+
+###
+
+POST https://httpbin.org/post
+Content-Type: application/x-www-form-urlencoded
+
+id=999&value=content
+
+<> 2022-09-15T203714-1.200.json
+
+###
+
+POST https://httpbin.org/post
+Content-Type: application/json
+
+{
+  "id": 999,
+  "value": "content"
+}
+
+<> 2022-09-15T203714.200.json
+
+###
+
+POST https://httpbin.org/post
+Content-Type: application/json
+
+{
+  "id": 1783b902-9a90-4116-b29c-57138078b0a8,
+  "price": 99,
+  "ts": 1663263372,
+  "value": "content"
+}
+
+<> 2022-09-15T203612-1.200.json
+
+###
+
+POST https://httpbin.org/post
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="element-name"
+Content-Type: text/plain
+
+Name
+--WebAppBoundary
+Content-Disposition: form-data; name="data"; filename="data.json"
+Content-Type: application/json
+
+< C:\Users\Julian\AppData\Local\Temp\http_request_input_file1.txt
+--WebAppBoundary--
+
+<> 2022-09-15T203612.200.json
+
+###
+
+POST https://httpbin.org/post
+Content-Type: application/x-www-form-urlencoded
+
+id=999&value=content
+
+<> 2022-09-15T203611-1.200.json
+
+###
+
+POST https://httpbin.org/post
+Content-Type: application/json
+
+{
+  "id": 999,
+  "value": "content"
+}
+
+<> 2022-09-15T203611.200.json
+
+###
+
+POST https://httpbin.org/post
+Content-Type: application/json
+
+{
+  "id": 27b79116-0045-4ce0-b882-8a477c230acd,
+  "price": 718,
+  "ts": 1663262710,
+  "value": "content"
+}
+
+<> 2022-09-15T202510.200.json
+
+###
+
+POST https://httpbin.org/post
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="element-name"
+Content-Type: text/plain
+
+Name
+--WebAppBoundary
+Content-Disposition: form-data; name="data"; filename="data.json"
+Content-Type: application/json
+
+< C:\Users\Julian\AppData\Local\Temp\http_request_input_file.txt
+--WebAppBoundary--
+
+<> 2022-09-15T202509.200.json
+
+###
+
+POST https://httpbin.org/post
+Content-Type: application/x-www-form-urlencoded
+
+id=999&value=content
+
+<> 2022-09-15T202508-1.200.json
+
+###
+
+POST https://httpbin.org/post
+Content-Type: application/json
+
+{
+  "id": 999,
+  "value": "content"
+}
+
+<> 2022-09-15T202508.200.json
+
+###
+
+POST http://localhost:80/api/item
+Content-Type: application/json
+
+{}
+
+

@@ -1,14 +1,25 @@
 using Blabalacar.Models;
+using Blabalacar.Models.Auto;
+using Blabalacar.Service;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using Route = Blabalacar.Models.Route;
 
 namespace Blabalacar.Database;
 
-public class BlalacarContext:DbContext
+public class BlalacarContext: IdentityDbContext<User,ApplicationRole,Guid>
 {
+    private readonly IConfiguration _configuration;
+    public BlalacarContext(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        //видалення user і trip одночасно
+        base.OnModelCreating(modelBuilder);
+        
         modelBuilder.Entity<UserTrip>()
             .HasKey(userTrip => new {userTrip.TripId, userTrip.UserId});
         modelBuilder.Entity<UserTrip>()
@@ -38,10 +49,7 @@ public class BlalacarContext:DbContext
         modelBuilder.Entity<Trip>()
             .Property(trip => trip.DepartureAt)
             .IsRequired();
-        // modelBuilder.Entity<Trip>()
-        //     .Property(trip => trip.RouteId)
-        //     .IsRequired();
-            
+
 
         modelBuilder.Entity<Route>()
             .HasKey(route => route.Id);
@@ -51,16 +59,18 @@ public class BlalacarContext:DbContext
         modelBuilder.Entity<Route>()
             .Property(route => route.EndRoute)
             .HasMaxLength(50);
+        
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(@"Server=DESKTOP-OAMN13B;Database=Blalacar;Trusted_Connection=True");
+        optionsBuilder.UseSqlServer("Server=DESKTOP-OAMN13B;Database=Blablacar;Trusted_Connection=True");
+        //_configuration.GetSection("ConnectionStrings:DefaultConnection").Value
     }
 
     public DbSet<UserTrip> UserTrips { get; set; }
     public DbSet<User> User { get; set; }
     public DbSet<Trip> Trip { get; set; }
-    
     public DbSet<Route> Route { get; set; }
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
 }
