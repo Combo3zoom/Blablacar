@@ -18,12 +18,11 @@ public class RegisterUserService:IRegisterUserService
     public string GetId()
     {
         var result = string.Empty;
-        if (_httpContextAccessor != null)
-            result = _httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        result = _httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier);
         
         return result;
     }
-    public void SetRefreshToken(User user, HttpResponse response)
+    public void SetRefreshToken(User user)
     {
         var newRefreshToken = new RefreshToken // create refresh token
         {
@@ -37,8 +36,8 @@ public class RegisterUserService:IRegisterUserService
             HttpOnly = true,
             Expires = newRefreshToken.Expires
         };
-        
-        response.Cookies.Append("refreshToken", newRefreshToken.Token, cookieOptions); // add cookies 
+
+        _httpContextAccessor.HttpContext!.Response.Cookies.Append("refreshToken", newRefreshToken.Token, cookieOptions); // add cookies 
         
         user.RefreshToken = newRefreshToken.Token;
         user.TokenCreated = newRefreshToken.Created;

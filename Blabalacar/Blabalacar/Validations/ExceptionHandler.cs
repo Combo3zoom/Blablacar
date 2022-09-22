@@ -15,11 +15,11 @@ public class ExceptionHandler
     {
         try
         {
-            await _delegate.Invoke(context);
+            await _delegate.Invoke(context).ConfigureAwait(false);
         }
         catch (Exception exception)
         {
-            await HandleExceptionAsync(context, exception);
+            await HandleExceptionAsync(context, exception).ConfigureAwait(false);
         }
     }
 

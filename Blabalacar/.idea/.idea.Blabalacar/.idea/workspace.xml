@@ -10,14 +10,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2729c1e-c54c-458c-b0eb-998b5f45dca2" name="Changes" comment="connect identityClass">
+    <list default="true" id="a2729c1e-c54c-458c-b0eb-998b5f45dca2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blabalacar/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blabalacar/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blabalacar/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Controllers/AuthController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/BlalacarContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Migrations/BlalacarContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/User/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/User/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Controllers/TripController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Controllers/TripController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Controllers/UserController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Controllers/UserTripController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Controllers/UserTripController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blabalacar/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Service/IRegisterUserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Service/IRegisterUserService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Service/RegisterUserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Service/RegisterUserService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Service/IRegisterUserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Service/Registration/IRegisterUserService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Service/RegisterUserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Service/Registration/RegisterUserService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Validations/ExceptionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Validations/ExceptionHandler.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +45,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c9ca552eea9bb8fababbf1cd3f981cf68849ccc365dcca5627376f98e505c74/ControllerActionInvoker.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/437dff7bf98c581e368abaf787674681552e2a799f21ceb0a0576471af5effdf/WebApplication.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/519d702c2430bd59c968c834a02af06dd74ee174ce53edd4c484d4ac2794a1/ValidationAttribute.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/575c31ecc35a636b6f962cb71d53992552941a18982aae1c8e6c16305cc3761b/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f5297661c332adde375e682e974228832372ef64d6fd9c55e716bce7f72c655/ResourceInvoker.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/52cd844476ec4091838909409447be01a23688/4d/5bad364e/AsyncValueTaskMethodBuilder`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/Downloads/Telegram Desktop/TokenGenerator.cs" root0="FORCE_HIGHLIGHTING" />
@@ -218,7 +221,8 @@
       <workItem from="1663430665970" duration="18000" />
       <workItem from="1663596626738" duration="680000" />
       <workItem from="1663656209546" duration="2649000" />
-      <workItem from="1663752591788" duration="25779000" />
+      <workItem from="1663752591788" duration="27583000" />
+      <workItem from="1663828154518" duration="21448000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1660593486599</created>
@@ -297,7 +301,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663793996420</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="optimised auth controller">
+      <created>1663801825141</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1663801825141</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -342,6 +353,7 @@
     <MESSAGE value="fix all prog" />
     <MESSAGE value="add json" />
     <MESSAGE value="connect identityClass" />
-    <option name="LAST_COMMIT_MESSAGE" value="connect identityClass" />
+    <MESSAGE value="optimised auth controller" />
+    <option name="LAST_COMMIT_MESSAGE" value="optimised auth controller" />
   </component>
 </project>

@@ -2,6 +2,7 @@ using Blabalacar.Database;
 using Blabalacar.Models;
 using Blabalacar.Database;
 using Blabalacar.Models;
+using Blabalacar.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,25 +14,27 @@ namespace Blabalacar.Controllers;
 [Authorize]
 public class TripController : Controller
 {
-    private readonly BlalacarContext _context;
+    private readonly IRepository<Trip, Guid> _tripRepository;
+    private readonly IHttpContextAccessor _httpContextAccessor;
     private Guid GetNextId() => new Guid();
 
-    public TripController(BlalacarContext context)
+    public TripController(IRepository<Trip, Guid> tripRepository, IHttpContextAccessor httpContextAccessor)
     {
-        _context = context;
+        _tripRepository = tripRepository;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     [HttpGet, AllowAnonymous]
-    public async Task<IEnumerable<Trip>> Get() => _context.Trip.Include("UserTrips").Include("Route");
+    public async Task<IEnumerable<Trip>> Get() => await _tripRepository.GetAll().ConfigureAwait(false);
 
     [HttpGet("{id:Guid}"), AllowAnonymous]
-    public Task<IActionResult> Get(Guid id)
+    public async Task<IActionResult> Get(Guid id)
     {
-        var trip =  _context.Trip.Include("UserTrips").Include("Route").
-            SingleOrDefault(trip => trip.Id == id);
+        var trip = _tripRepository.GetById(id).Result;
         if (trip == null)
-            return Task.FromResult<IActionResult>(NotFound());
-        return Task.FromResult<IActionResult>(Ok(trip));
+            return NotFound();
+        
+        return Ok(trip);
     } 
 
     [HttpPost]
@@ -39,12 +42,15 @@ public class TripController : Controller
     {
         if (!ModelState.IsValid)
             return NotFound();
+        
         var nextIdTrip = GetNextId();
         var route = new Route(nextIdTrip, createTripBody.StartRoute, createTripBody.EndRoute);
         var trip = new Trip(nextIdTrip, route.Id, route, createTripBody.DepartureAt);
         trip.Route.Trips!.Add(trip);
-        _context.Trip.Add(trip);
-        await _context.SaveChangesAsync();
+        
+        await _tripRepository.Insert(trip).ConfigureAwait(false);
+        await _tripRepository.Save().ConfigureAwait(false);
+        
         return CreatedAtAction(nameof(Get), new {id = trip.Id}, trip);
     }
 
@@ -53,25 +59,31 @@ public class TripController : Controller
     {
         if (!ModelState.IsValid)
             return BadRequest();
-        var changedtrip = _context.Trip.SingleOrDefault(storeTrip => storeTrip.Id == trip.Id);
+        
+        var changedtrip = _tripRepository.GetById(trip.Id).Result;
         if (changedtrip == null)
             return NotFound();
+        
         changedtrip.Route.StartRoute = trip.Route.StartRoute;
         changedtrip.Route.EndRoute = trip.Route.EndRoute;
         changedtrip.DepartureAt = trip.DepartureAt;
         changedtrip.UserTrips = trip.UserTrips;
-        await _context.SaveChangesAsync();
+        
+        await _tripRepository.Save().ConfigureAwait(false);
+        
         return Ok(changedtrip);
     }
 
     [HttpDelete("{id:Guid}")]
     public async Task<IActionResult> Delete(Guid id)
     {
-        var deleteTrip = _context.Trip.SingleOrDefault(storeTrip => storeTrip.Id == id);
+        var deleteTrip = _tripRepository.GetById(id).Result;
         if (deleteTrip == null)
             return BadRequest();
-        _context.Trip.Remove(deleteTrip);
-        await _context.SaveChangesAsync();
+        
+        await _tripRepository.Delete(deleteTrip).ConfigureAwait(false);
+        await _tripRepository.Save().ConfigureAwait(false);;
+        
         return Ok();
     }
 }

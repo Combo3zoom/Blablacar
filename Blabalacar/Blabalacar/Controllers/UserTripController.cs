@@ -14,7 +14,7 @@ public class UserTripController: Controller
     {
         _context = context;
     }
-    [HttpPost("{userId:Guid},{tripId:Guid}")]
+    [HttpPost("Order a trip: {userId:Guid},{tripId:Guid}")]
     public async Task<IActionResult> Post(Guid userId, Guid tripId)
     {
         if (!ModelState.IsValid)
@@ -26,11 +26,11 @@ public class UserTripController: Controller
         var userTrip = new UserTrip(user, userId, trip, tripId);
         user.UserTrips!.Add(userTrip);
         trip.UserTrips!.Add(userTrip);
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync().ConfigureAwait(false);
         return Ok();
     }
 
-    [HttpDelete("{userId:Guid}, {tripId:Guid}")]
+    [HttpDelete("Cancel the trip: {userId:Guid}, {tripId:Guid}")]
     public async Task<IActionResult> Delete(Guid userId, Guid tripId)
     {
         if (!ModelState.IsValid)
@@ -39,9 +39,9 @@ public class UserTripController: Controller
             stageUserTrip.UserId == userId && stageUserTrip.TripId == tripId);
         if (userTrip == null)
             return BadRequest();
-        _context.User.Remove((await _context.User.FindAsync(userTrip.UserId))!); 
-        _context.Trip.Remove((await _context.Trip.FindAsync(userTrip.TripId))!);
-        await _context.SaveChangesAsync();
+        _context.User.Remove((await _context.User.FindAsync(userTrip.UserId).ConfigureAwait(false))!); 
+        _context.Trip.Remove((await _context.Trip.FindAsync(userTrip.TripId).ConfigureAwait(false))!);
+        await _context.SaveChangesAsync().ConfigureAwait(false);
         return Ok();
     }
 }

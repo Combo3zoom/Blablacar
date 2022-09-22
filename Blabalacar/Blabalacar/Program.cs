@@ -3,6 +3,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Blabalacar.Database;
 using Blabalacar.Models;
+using Blabalacar.Repository;
 using Blabalacar.Service;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -16,12 +17,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<IRegisterUserService, RegisterUserService>();
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddSwaggerGen(options =>
+//add repository object
+builder.Services.AddScoped<IUserRepository<UserTrip, Guid>, UserRepository>();
+builder.Services.AddScoped<IRepository<Trip, Guid>, TripRepository>();
+
+builder.Services.AddSwaggerGen(options => // option swagger
 {
     options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
     {
@@ -33,7 +38,7 @@ builder.Services.AddSwaggerGen(options =>
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme) // option authentication
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
