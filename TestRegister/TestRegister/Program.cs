@@ -1,32 +1,24 @@
 using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using Blabalacar.Database;
-using Blabalacar.Models;
-using Blabalacar.Repository;
-using Blabalacar.Service;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using  Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.IdentityModel.Tokens;
+
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
+using TestRegister;
+using TestRegister.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
 
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<IRegisterUserService, RegisterUserService>();
 builder.Services.AddHttpContextAccessor();
-
-//add repository object
-builder.Services.AddScoped<IUserRepository<UserTrip, Guid>, UserRepository>();
-builder.Services.AddScoped<IRepository<Trip, Guid>, TripRepository>();
-
-builder.Services.AddSwaggerGen(options => // option swagger
+builder.Services.AddSwaggerGen(options =>
 {
     options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
     {
@@ -37,8 +29,7 @@ builder.Services.AddSwaggerGen(options => // option swagger
     });
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme) // option authentication
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
@@ -46,17 +37,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme) // op
             ValidateIssuerSigningKey = true,
             IssuerSigningKey =
                 new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("JWT:Key").Value)),
-            ValidateIssuer = false,//той хто видає
-            ValidateAudience = false//той хто користується
+            ValidateIssuer = false,//?
+            ValidateAudience = false//?
         };
     });
-builder.Services.AddIdentity<User, ApplicationRole>()
-    .AddEntityFrameworkStores<BlalacarContext>();
-builder.Services.AddDbContext<BlalacarContext>();// передає у конктруктор наш контекст
-builder.Services.AddControllersWithViews()
-    .AddNewtonsoftJson(options =>
-        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-    );
+
 
 var app = builder.Build();
 
@@ -67,15 +52,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
-app.UseAuthentication(); 
-app.UseAuthorization();  
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
-
-
-
 
