@@ -6,42 +6,44 @@ namespace Blabalacar.Repository;
 
 public class TripRepository:IRepository<Trip,Guid>
 {
-    private readonly BlalacarContext _context;
+    private readonly BlablacarContext _context;
 
-    public TripRepository(BlalacarContext context)
+    public TripRepository(BlablacarContext context)
     {
         _context = context;
     }
-    public async Task<IEnumerable<Trip>> GetAll()
+    public async Task<IEnumerable<Trip>> GetAll(CancellationToken cancellationToken=default)
     {
-        return await _context.Trip.Include("UserTrips").Include("Route").ToListAsync().ConfigureAwait(false);
+        return await _context.Trip.Include(trip=>trip.UserTrips)
+            .Include(trip=>trip.Route).ToListAsync(cancellationToken: cancellationToken);
     }
 
-    public async Task<Trip> GetById(Guid id)
+    public async Task<Trip> GetById(Guid id, CancellationToken cancellationToken=default)
     {
-        return (await _context.Trip.Include("UserTrips").Include("Route").SingleOrDefaultAsync(trip => trip.Id == id).ConfigureAwait(false))!;
+        return (await _context.Trip.Include(trip=>trip.UserTrips)
+            .Include(trip=>trip.Route)
+            .SingleOrDefaultAsync(trip => trip.Id == id, cancellationToken: cancellationToken))!;
     }
 
-    public async Task<Trip> Insert(Trip trip)
+    public async Task<Trip> Insert(Trip trip, CancellationToken cancellationToken=default)
     {
-        await _context.Trip.AddAsync(trip).ConfigureAwait(false);
+        await _context.Trip.AddAsync(trip, cancellationToken);
         return trip;
     }
 
-    public Task DeleteAt(Guid id)
+    public async Task DeleteAt(Guid id, CancellationToken cancellationToken=default)
     {
-        var trip = _context.Trip.SingleOrDefaultAsync(currentTrip => currentTrip.Id == id); 
-        return trip;
+        await _context.Trip.SingleOrDefaultAsync(currentTrip => currentTrip.Id == id, cancellationToken: cancellationToken);
     }
 
-    public Task Delete(Trip trip)
+    public Task Delete(Trip trip, CancellationToken cancellationToken=default)
     {
         _context.Remove(trip);
         return Task.CompletedTask;
     }
 
-    public async Task Save()
+    public async Task Save(CancellationToken cancellationToken=default)
     {
-        await _context.SaveChangesAsync().ConfigureAwait(false);
+        await  _context.SaveChangesAsync(cancellationToken);
     }
 }

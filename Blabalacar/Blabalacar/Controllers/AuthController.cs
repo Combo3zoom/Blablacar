@@ -1,16 +1,15 @@
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
-using Blabalacar.Database;
 using Blabalacar.Models;
 using Blabalacar.Models.Auto;
+using Blabalacar.Models.Entities;
 using Blabalacar.Repository;
 using Blabalacar.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Caching.Memory;
+using Newtonsoft.Json;
+
 
 namespace Blabalacar.Controllers;
 
@@ -21,86 +20,117 @@ public class AuthController : Controller
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
     private readonly IUserRepository<UserTrip, Guid> _userRepository;
+    private readonly IMemoryCache _memoryCache;
+    private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IConfiguration _configuration;
     private readonly IRegisterUserService _registerUserService;
 
     public AuthController(IConfiguration configuration, IRegisterUserService registerUserService, 
-        UserManager<User> userManager, SignInManager<User> signInManager, IUserRepository<UserTrip,Guid> userRepository)
+        UserManager<User> userManager, SignInManager<User> signInManager, IUserRepository<UserTrip,Guid> userRepository,
+        IMemoryCache memoryCache, IHttpContextAccessor httpContextAccessor)
     {
         _configuration = configuration;
         _registerUserService = registerUserService;
         _userManager = userManager;
         _signInManager = signInManager;
         _userRepository = userRepository;
+        _memoryCache = memoryCache;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     [HttpGet, Authorize]
     public ActionResult<string> GetMyId()
     {
-        var userName = _registerUserService.GetId();
-        return Ok(userName);
+        _registerUserService.GetId();
+        return Ok();
     }
-
-    private Guid GetNextId() => new Guid();
-    [HttpPost("register")]
-    public async Task<ActionResult<User>> Register(RegisterUserDto request)
+    [HttpGet("logout/")]
+    public async Task<IActionResult> Logout(CancellationToken cancellationToken=default)
     {
-        var newUser = new User{Id=GetNextId(), Name=request.Name, UserName = request.Name};
-        var result = await _userManager.CreateAsync(newUser, request.Password).ConfigureAwait(false);
+        await _signInManager.SignOutAsync();
+        return Ok();
+    }
+    
+    [HttpPost("register")]
+    public async Task<ActionResult<User>> Register(RegisterUserDto request, CancellationToken cancellationToken=default)
+    {
+        var newUser = new User{Id=new Guid(), Name=request.Name, UserName = request.Name};
+        var result = await _userManager.CreateAsync(newUser, request.Password);
         
         if (!result.Succeeded)
             return BadRequest(result.Errors);
-        
-        await _signInManager.SignInAsync(newUser, isPersistent: false).ConfigureAwait(false);//life time cookies - after close web
-        
+
+        await _signInManager.SignInAsync(newUser, isPersistent: false);
+
         return CreatedAtAction(nameof(GetMyId),new{id=newUser.Id}, newUser);
     } 
 
     [HttpPost("login")]
-    public async Task<ActionResult<string>> Login(RegisterUserDto request)
+    public async Task<ActionResult<string>> Login(RegisterUserDto request, CancellationToken cancellationToken=default)
     {
         if (!ModelState.IsValid)
             return BadRequest();
 
-        var user = _userRepository.GetByName(request.Name).Result;
-        //var user = await _context.User.SingleOrDefaultAsync(currentUser => currentUser.Name == request.Name);// <-- extra question
+        var user =  await _userRepository.GetByName(request.Name, cancellationToken);
+        
         if (user==null)
             return BadRequest("User don't found ");
 
         var checkPassword = await _signInManager.PasswordSignInAsync(request.Name, request.Password, 
-            false, false).ConfigureAwait(false);
+            false, false);
         if (!checkPassword.Succeeded)
             return BadRequest("Incorrect name or password");
 
-        await _signInManager.CanSignInAsync(user).ConfigureAwait(false);//  <--?
+        await _signInManager.CanSignInAsync(user);
 
-        var token = _registerUserService.CreateAccessToken(user, _configuration);
+        var accessToken = _registerUserService.CreateAccessToken(user, _configuration);
         _registerUserService.SetRefreshToken(user);
-        await _userRepository.Save().ConfigureAwait(false);
+        await _userRepository.Save(cancellationToken);
         
-        return Ok(token);
+
+        SetCacheRefreshToken(user.Id, user.RefreshToken);
+
+        var tokens = new TokenResponse(accessToken, user.RefreshToken);
+        return Ok(JsonConvert.SerializeObject(tokens));
     }
     
 
     [HttpPost("refresh-token"),Authorize]
-    public async Task<ActionResult<string>> RefreshToken()
+    public async Task<ActionResult<TokenResponse>> RefreshToken([FromQuery] string refreshToken,
+        CancellationToken cancellationToken = default)
     {
-        var currentIdUserCookies = new Guid(_registerUserService.GetId());
-        var user = _userRepository.GetById(currentIdUserCookies).Result;
-        if (user == null)
-            return BadRequest("user not found");
+        var currentUserId = new Guid(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
+       
+
+        string currentRefreshToken;
+        if (!_memoryCache.TryGetValue(currentUserId, out currentRefreshToken))
+        {
+            currentRefreshToken = await _userRepository.GetRefreshToken(currentUserId, cancellationToken);
+            SetCacheRefreshToken(currentUserId, currentRefreshToken);
+        }
+
+        var currentUser = await _userRepository.GetById(currentUserId, cancellationToken);
+        if (currentRefreshToken != refreshToken)
+            return BadRequest("Incorrect refresh token");
+
+
+        _registerUserService.SetRefreshToken(currentUser);
+        await _userRepository.Save(cancellationToken);
+
+        SetCacheRefreshToken(currentUserId, currentRefreshToken);
+
+        var accessToken = _registerUserService.CreateAccessToken(currentUser, _configuration);
+        var tokens = new TokenResponse(accessToken, refreshToken);
         
-        var refreshToken = Request.Cookies["refreshToken"];
-        if (!user.RefreshToken.Equals(refreshToken))
-            return Unauthorized("Invalid Refresh token");
-        
-        if (user.TokenExpires < DateTimeOffset.Now)
-            return Unauthorized("Token expired");
-        
-        _registerUserService.SetRefreshToken(user);
-        await _userRepository.Save().ConfigureAwait(false);
-        
-        return Ok(_registerUserService.CreateAccessToken(user, _configuration));
+        return Ok(tokens);
+    }
+    
+    private void SetCacheRefreshToken(Guid currentUserId, string currentRefreshToken)
+    {
+        _memoryCache.Set(currentUserId, currentRefreshToken, new MemoryCacheEntryOptions
+        {
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(20)
+        });
     }
 
 } 

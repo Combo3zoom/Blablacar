@@ -11,15 +11,73 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2729c1e-c54c-458c-b0eb-998b5f45dca2" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Blabalacar/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blabalacar/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blabalacar/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blabalacar/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Blabalacar.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Blabalacar.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blabalacar/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Controllers/AuthController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blabalacar/Controllers/TripController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Controllers/TripController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blabalacar/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Controllers/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Controllers/UserTripController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Controllers/UserTripController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Controllers/UserTripController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Database/BlalacarContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Database/BlablacarContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220921201505_Init.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Migrations/20220921201505_Init.Designer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220921220256_removePasswordHash.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Migrations/20220921220256_removePasswordHash.Designer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220921220537_removePasswordSalt.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Migrations/20220921220537_removePasswordSalt.Designer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/BlalacarContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Migrations/BlalacarContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/BaseEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Interface/IBaseEntity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/RefreshToken.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/Role.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Enum/Role.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/Route.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Entities/Route.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/Trip/CreateTripBody.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Entities/Trip/CreateTripBody.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/Trip/Trip.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Entities/Trip/Trip.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/User/CreateUserBody.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Entities/User/CreateUserBody.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/User/RegisterUserDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Entities/User/RegisterUserDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/User/UpdateUserBody.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Entities/User/UpdateUserBody.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/User/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Entities/User/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/UserTrip.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Entities/UserTrip.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blabalacar/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Service/IRegisterUserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Service/Registration/IRegisterUserService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Service/RegisterUserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Service/Registration/RegisterUserService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Validations/ExceptionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Validations/ExceptionHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Repository/Interface/IRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Repository/Interface/IRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Repository/Interface/IUserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Repository/Interface/IUserRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Repository/TripRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Repository/TripRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Repository/UserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Repository/UserRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Service/ApplicationRole.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Enum/ApplicationRole.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Service/Registration/IRegisterUserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Service/Registration/IRegisterUserService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Service/Registration/RegisterUserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Service/Registration/RegisterUserService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/ViewModel/LoginModel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/ViewModel/RegisterModel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestRegister/.idea/.idea.TestRegister/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestRegister/.idea/.idea.TestRegister/.idea/indexLayout.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestRegister/.idea/.idea.TestRegister/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister.sln" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/.dockerignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/Context/UserContext.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/Controllers/AuthController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/Controllers/WatherForecast.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/Models/RefreshToken.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/Models/RegisterUser.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/Models/RegisterUserDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/Models/Weatherforecast.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/Program.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/Properties/launchSettings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/Services/IRegisterUserService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/Services/RegisterUserService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/TestRegister.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/appsettings.Development.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/appsettings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApplication1/.idea/.idea.WebApplication1/.idea/indexLayout.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApplication1/.idea/.idea.WebApplication1/.idea/projectSettingsUpdater.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApplication1/.idea/.idea.WebApplication1/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApplication1/.idea/.idea.WebApplication1/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApplication1/WebApplication1.sln" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApplication1/WebApplication1/.dockerignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApplication1/WebApplication1/Controllers/WeatherForecastController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApplication1/WebApplication1/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApplication1/WebApplication1/Program.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApplication1/WebApplication1/Properties/launchSettings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApplication1/WebApplication1/WeatherForecast.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApplication1/WebApplication1/WebApplication1.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApplication1/WebApplication1/appsettings.Development.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApplication1/WebApplication1/appsettings.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,13 +105,16 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/519d702c2430bd59c968c834a02af06dd74ee174ce53edd4c484d4ac2794a1/ValidationAttribute.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/575c31ecc35a636b6f962cb71d53992552941a18982aae1c8e6c16305cc3761b/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f5297661c332adde375e682e974228832372ef64d6fd9c55e716bce7f72c655/ResourceInvoker.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/CustomIdentityServer/Program.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/52cd844476ec4091838909409447be01a23688/4d/5bad364e/AsyncValueTaskMethodBuilder`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/Downloads/Telegram Desktop/TokenGenerator.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/27b91272f348469b8fccc471c1ccd767f57a64f55a44975790bfae805b4ebb/Future.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5330988bfaacf93f15e30f9b3dd6018a768f89da3b38d874fda77299c62164/DbContext.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/CustomIdentityServer/Program.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/Downloads/Telegram Desktop/TestClass.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7d9a41d47547e1fe7fe548b21ab4de12cc2671170a023bc8c629017837eb5f4/ActionMethodExecutor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Blabalacar/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c3b0f7d4199d4eb59c04605841b5535ea23898/ea/7cc0f7fe/AsyncValueTaskMethodBuilder`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1e8feaadf5c3fa14d36ea2a638c432a2e1a47b7837d8b83d88303c5d9c15cf/AsyncValueTaskMethodBuilderT.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/faf4a4b37056302738a46865827c3d2d3b6b1b977603a3932b0cd749921118/Controller.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9d4f4ac7db6d2c5d183ab2d92602280ed4349fd6e6a1b6313546b3d01fdab5/ServiceProvider.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -223,6 +284,19 @@
       <workItem from="1663656209546" duration="2649000" />
       <workItem from="1663752591788" duration="27583000" />
       <workItem from="1663828154518" duration="21448000" />
+      <workItem from="1664036416309" duration="1611000" />
+      <workItem from="1664208538360" duration="2254000" />
+      <workItem from="1664305602098" duration="665000" />
+      <workItem from="1664367117557" duration="3933000" />
+      <workItem from="1664535036268" duration="1237000" />
+      <workItem from="1664784514802" duration="936000" />
+      <workItem from="1664915664330" duration="651000" />
+      <workItem from="1664952644326" duration="7358000" />
+      <workItem from="1665164097999" duration="2194000" />
+      <workItem from="1665216919489" duration="6128000" />
+      <workItem from="1665428972314" duration="1446000" />
+      <workItem from="1665490064326" duration="16757000" />
+      <workItem from="1665558471840" duration="11155000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1660593486599</created>
@@ -355,5 +429,24 @@
     <MESSAGE value="connect identityClass" />
     <MESSAGE value="optimised auth controller" />
     <option name="LAST_COMMIT_MESSAGE" value="optimised auth controller" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Blabalacar/Controllers/AuthController.cs</url>
+          <line>101</line>
+          <properties documentPath="C:\Users\Julian\RiderProjects\Blablacar\Blabalacar\Blabalacar\Controllers\AuthController.cs" initialLine="103" containingFunctionPresentation="method 'RefreshToken'">
+            <startOffsets>
+              <option value="3678" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3788" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
