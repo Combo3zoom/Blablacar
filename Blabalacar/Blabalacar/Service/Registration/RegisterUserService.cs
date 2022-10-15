@@ -24,14 +24,14 @@ public class RegisterUserService:IRegisterUserService
         result = _httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier);
         return result;
     }
-    public void SetRefreshToken(Models.User user)
+    public void SetRefreshToken(Models.User? user)
     {
         user.RefreshToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
         user.RefreshTokenCreatedAt = DateTime.Now;
         user.RefreshTokenExpiresAt = DateTime.Now.AddMinutes(300);
     }
 
-    public string CreateAccessToken(Models.User registerUser, IConfiguration _configuration)
+    public string CreateAccessToken(Models.User? registerUser, IConfiguration _configuration)
     {
         var claims = new List<Claim>
         {

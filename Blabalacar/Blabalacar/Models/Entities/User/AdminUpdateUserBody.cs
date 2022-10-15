@@ -8,7 +8,7 @@ public class AdminUpdateUserBody
     public Guid Id { get; set; }
     [Required]
     [NameValidation("^[A-z]{1}[a-z]{3,16}$",ErrorMessage = "Name is incorrect")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
     public bool IsVerification { get; set; }
     public Role Role { get; set; }
 }

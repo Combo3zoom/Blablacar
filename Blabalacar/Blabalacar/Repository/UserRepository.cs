@@ -20,20 +20,19 @@ public class UserRepository:IUserRepository<UserTrip, Guid>
             stageUserTrip!.UserId == firstId && stageUserTrip.TripId == secondId, cancellationToken: cancellationToken))!;
     }
 
-    public Task ConnectionBetweenUserAndTripDelete(UserTrip userTrip, CancellationToken cancellationToken=default)
+    public Task ConnectionBetweenUserAndTripDelete(UserTrip? userTrip, CancellationToken cancellationToken=default)
     {
         _context.UserTrips.Remove(userTrip);
         return Task.CompletedTask;
     }
 
-    public async Task<User> GetByName(string name, CancellationToken cancellationToken=default)
+    public async Task<User?> GetByName(string? name, CancellationToken cancellationToken=default)
     {
-        var a = await _context.User.Include(user => user.UserTrips)
-            .SingleOrDefaultAsync(user => user.Name == name, cancellationToken);
-        return a;
+        return await _context.User.Include(user => user.UserTrips)
+            .FirstOrDefaultAsync(user => user.Name == name, cancellationToken);
     }
 
-    public async Task<IEnumerable<User>> GetAll(CancellationToken cancellationToken=default)
+    public async Task<IEnumerable<User?>> GetAll(CancellationToken cancellationToken=default)
     {
         return await _context.User.Include(user=>user.UserTrips)
             .ToListAsync(cancellationToken: cancellationToken);
@@ -45,7 +44,7 @@ public class UserRepository:IUserRepository<UserTrip, Guid>
             .SingleOrDefaultAsync(user => user.Id == id, cancellationToken: cancellationToken))!;
     }
 
-    public async Task<User> Insert(User entity, CancellationToken cancellationToken=default)
+    public async Task<User?> Insert(User? entity, CancellationToken cancellationToken=default)
     {
         await _context.User.AddAsync(entity, cancellationToken);
         return entity;
@@ -68,12 +67,5 @@ public class UserRepository:IUserRepository<UserTrip, Guid>
     public async Task Save(CancellationToken cancellationToken=default)
     {
         await _context.SaveChangesAsync(cancellationToken);
-    }
-
-    public async Task<string> GetRefreshToken(Guid id, CancellationToken cancellationToken=default)
-    {
-        var currentUser = await _context.User.SingleOrDefaultAsync(user => user.Id == id,
-            cancellationToken: cancellationToken);
-        return currentUser.RefreshToken;
     }
 }

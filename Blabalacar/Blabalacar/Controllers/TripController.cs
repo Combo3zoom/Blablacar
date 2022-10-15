@@ -18,13 +18,13 @@ namespace Blabalacar.Controllers;
 [Authorize]
 public class TripController : Controller
 {
-    private readonly IRepository<Trip, Guid> _tripRepository;
+    private readonly IRepository<Trip?, Guid> _tripRepository;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ITripService _tripService;
     private readonly IUserRepository<UserTrip, Guid> _userRepository;
     private readonly IUserService _userService;
 
-    public TripController(IRepository<Trip, Guid> tripRepository, IHttpContextAccessor httpContextAccessor,
+    public TripController(IRepository<Trip?, Guid> tripRepository, IHttpContextAccessor httpContextAccessor,
         ITripService tripService, IUserRepository<UserTrip,Guid> userRepository, IUserService userService)
     {
         _tripRepository = tripRepository;
@@ -35,7 +35,7 @@ public class TripController : Controller
     }
 
     [HttpGet, AllowAnonymous]
-    public  Task<IEnumerable<Trip>> GetTrips(CancellationToken cancellationToken=default)
+    public  Task<IEnumerable<Trip?>> GetTrips(CancellationToken cancellationToken=default)
         =>  _tripRepository.GetAll(cancellationToken);
 
     [HttpGet("{id:Guid}"), AllowAnonymous]

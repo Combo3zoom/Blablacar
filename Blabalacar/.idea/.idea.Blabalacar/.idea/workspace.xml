@@ -11,73 +11,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2729c1e-c54c-458c-b0eb-998b5f45dca2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Blabalacar/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blabalacar/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blabalacar/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blabalacar/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Blabalacar.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Blabalacar.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blabalacar/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Controllers/AuthController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blabalacar/Controllers/TripController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Controllers/TripController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blabalacar/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Controllers/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Controllers/UserTripController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Database/BlalacarContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Database/BlablacarContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220921201505_Init.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Migrations/20220921201505_Init.Designer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220921220256_removePasswordHash.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Migrations/20220921220256_removePasswordHash.Designer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/20220921220537_removePasswordSalt.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Migrations/20220921220537_removePasswordSalt.Designer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Migrations/BlalacarContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Migrations/BlalacarContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/BaseEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Interface/IBaseEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/RefreshToken.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/Role.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Enum/Role.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/Route.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Entities/Route.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/Trip/CreateTripBody.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Entities/Trip/CreateTripBody.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/Trip/Trip.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Entities/Trip/Trip.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/User/CreateUserBody.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Entities/User/CreateUserBody.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/User/RegisterUserDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Entities/User/RegisterUserDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/User/UpdateUserBody.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Entities/User/UpdateUserBody.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/User/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Entities/User/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/UserTrip.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Entities/UserTrip.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/Entities/User/AdminUpdateUserBody.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Entities/User/AdminUpdateUserBody.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/Entities/User/RegisterUserDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Entities/User/RegisterUserDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/Entities/User/UpdateUserBody.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Entities/User/UpdateUserBody.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/Entities/User/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Entities/User/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Models/Entities/UserTrip.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Entities/UserTrip.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blabalacar/Repository/Interface/IRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Repository/Interface/IRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blabalacar/Repository/Interface/IUserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Repository/Interface/IUserRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blabalacar/Repository/TripRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Repository/TripRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blabalacar/Repository/UserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Repository/UserRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/Service/ApplicationRole.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Models/Enum/ApplicationRole.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blabalacar/Service/Registration/IRegisterUserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Service/Registration/IRegisterUserService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blabalacar/Service/Registration/RegisterUserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Service/Registration/RegisterUserService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/ViewModel/LoginModel.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Blabalacar/ViewModel/RegisterModel.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TestRegister/.idea/.idea.TestRegister/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TestRegister/.idea/.idea.TestRegister/.idea/indexLayout.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TestRegister/.idea/.idea.TestRegister/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister.sln" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/.dockerignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/Context/UserContext.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/Controllers/AuthController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/Controllers/WatherForecast.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/Models/RefreshToken.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/Models/RegisterUser.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/Models/RegisterUserDto.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/Models/Weatherforecast.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/Program.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/Properties/launchSettings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/Services/IRegisterUserService.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/Services/RegisterUserService.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/TestRegister.csproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/appsettings.Development.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TestRegister/TestRegister/appsettings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/.idea/.idea.WebApplication1/.idea/indexLayout.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/.idea/.idea.WebApplication1/.idea/projectSettingsUpdater.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/.idea/.idea.WebApplication1/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/.idea/.idea.WebApplication1/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/WebApplication1.sln" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/WebApplication1/.dockerignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/WebApplication1/Controllers/WeatherForecastController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/WebApplication1/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/WebApplication1/Program.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/WebApplication1/Properties/launchSettings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/WebApplication1/WeatherForecast.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/WebApplication1/WebApplication1.csproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/WebApplication1/appsettings.Development.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/WebApplication1/appsettings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Service/TripService/ITripService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Service/TripService/ITripService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Service/TripService/TripService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Service/TripService/TripService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Service/UserService/IUserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Service/UserService/IUserService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Service/UserService/UserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Blabalacar/Service/UserService/UserService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Validations/BadRequestException.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/Validations/BaseException.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blabalacar/gettest.http" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -296,7 +251,11 @@
       <workItem from="1665216919489" duration="6128000" />
       <workItem from="1665428972314" duration="1446000" />
       <workItem from="1665490064326" duration="16757000" />
-      <workItem from="1665558471840" duration="11155000" />
+      <workItem from="1665558471840" duration="12816000" />
+      <workItem from="1665643292214" duration="2423000" />
+      <workItem from="1665738769717" duration="2968000" />
+      <workItem from="1665825381240" duration="5688000" />
+      <workItem from="1665860453505" duration="3143000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1660593486599</created>
@@ -382,7 +341,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663801825141</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="updated auth and rename fields">
+      <created>1665570800447</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1665570800447</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -428,25 +394,7 @@
     <MESSAGE value="add json" />
     <MESSAGE value="connect identityClass" />
     <MESSAGE value="optimised auth controller" />
-    <option name="LAST_COMMIT_MESSAGE" value="optimised auth controller" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Blabalacar/Controllers/AuthController.cs</url>
-          <line>101</line>
-          <properties documentPath="C:\Users\Julian\RiderProjects\Blablacar\Blabalacar\Blabalacar\Controllers\AuthController.cs" initialLine="103" containingFunctionPresentation="method 'RefreshToken'">
-            <startOffsets>
-              <option value="3678" />
-            </startOffsets>
-            <endOffsets>
-              <option value="3788" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="updated auth and rename fields" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated auth and rename fields" />
   </component>
 </project>

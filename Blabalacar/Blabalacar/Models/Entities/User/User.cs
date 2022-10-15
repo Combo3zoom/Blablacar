@@ -6,7 +6,7 @@ namespace Blabalacar.Models;
 public class User: IdentityUser<Guid>
 {
     [Required]
-    public string Name { get; set; } = string.Empty;
+    public string? Name { get; set; } = string.Empty;
 
     public Role Role { get; set; } = Role.User;
     public bool IsVerification { get; set; } = false;

@@ -8,6 +8,6 @@ public interface IUserService
 {
     void UpdateSelfUser(Models.User changeUser, UpdateUserBody user);
     void AdminUpdateUser(Models.User changeUser, AdminUpdateUserBody user);
-    UserTrip FoundUserTrip(Models.User user, Trip trip);
+    UserTrip FoundUserTrip(Models.User? user, Trip? trip);
 
 }

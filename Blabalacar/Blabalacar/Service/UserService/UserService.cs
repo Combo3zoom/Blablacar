@@ -27,7 +27,7 @@ public class UserService:IUserService
         user.IsVerification = user.IsVerification;
     }
 
-    public UserTrip FoundUserTrip(Models.User user, Trip trip)
+    public UserTrip FoundUserTrip(Models.User? user, Trip? trip)
     {
         return new UserTrip{User = user, UserId = user.Id, Trip = trip, TripId = trip.Id};
     }

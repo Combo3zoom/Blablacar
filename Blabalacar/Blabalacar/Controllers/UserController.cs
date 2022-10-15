@@ -9,6 +9,7 @@ using Blabalacar.Validations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Blabalacar.Controllers;
 [Route("[controller]")]
@@ -20,19 +21,30 @@ public class UserController: Controller
     private readonly IRepository<Trip, Guid> _tripRepository;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IUserService _userService;
+    private readonly IMemoryCache _memoryCache;
 
     public UserController(IUserRepository<UserTrip, Guid> userRepository,
-        IRepository<Trip, Guid> tripRepository, IHttpContextAccessor httpContextAccessor, IUserService userService)
+        IRepository<Trip, Guid> tripRepository, IHttpContextAccessor httpContextAccessor, IUserService userService,
+        IMemoryCache memoryCache)
     {
         _userRepository = userRepository;
         _tripRepository = tripRepository;
         _httpContextAccessor = httpContextAccessor;
         _userService = userService;
+        _memoryCache = memoryCache;
     }
 
     [HttpGet, AllowAnonymous]
-    public Task<IEnumerable<User>> Get(CancellationToken cancellationToken=default)
+    public Task<IEnumerable<User?>> Get(CancellationToken cancellationToken=default)
         => _userRepository.GetAll(cancellationToken);
+    
+    [HttpGet("/me"), AllowAnonymous]
+    public async Task<IActionResult> GetMe(CancellationToken cancellationToken=default)
+    {
+        var id = new Guid(_httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty);
+        var user = await _userRepository.GetById(id, cancellationToken);
+        return Ok(user);
+    }
     
     [HttpGet("{id:Guid}"), AllowAnonymous]
     public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken=default)
@@ -51,12 +63,13 @@ public class UserController: Controller
 
         var user = await _userRepository.GetById(userId, cancellationToken);
         var trip = await _tripRepository.GetById(tripId, cancellationToken);
-        
+
         if (user == null || trip == null)
             return BadRequest("user or trip don't exist");
-        
-        
+
         await _userRepository.Save(cancellationToken);
+        
+        _memoryCache.Remove(userId);
         
         return Ok();
     }
@@ -74,22 +87,28 @@ public class UserController: Controller
         _userService.AdminUpdateUser(currentUser, newUser);
         await _userRepository.Save(cancellationToken);
         
+        _memoryCache.Remove(currentUser.Id);
+        
         return Ok(currentUser);
     }
     
     [HttpPut("me/put")]
     public async Task<IActionResult> PutUser(UpdateUserBody newUser, CancellationToken cancellationToken=default)
     {
+        var userId = new Guid(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
+
         if (!ModelState.IsValid)
             return BadRequest("Incorrect input dates");
 
-        var currentUser = await _userRepository.GetById(newUser.Id, cancellationToken);
+        var currentUser = await _userRepository.GetById(userId, cancellationToken);
         if (currentUser == null)
             return NotFound("user don't exist");
         
         _userService.UpdateSelfUser(currentUser, newUser);
         await _userRepository.Save(cancellationToken);
         
+        _memoryCache.Remove(currentUser.Id);
+
         return Ok(currentUser);
     }
 
@@ -102,6 +121,8 @@ public class UserController: Controller
         
         await _userRepository.Delete(deleteUser, cancellationToken);
         await _userRepository.Save(cancellationToken);
+        
+        _memoryCache.Remove(deleteUser.Id);
         
         return Ok();
     }
@@ -137,6 +158,8 @@ public class UserController: Controller
         await _userRepository.ConnectionBetweenUserAndTripDelete(userTrip, cancellationToken);
 
         await _userRepository.Save(cancellationToken);
+        
+        _memoryCache.Remove(userId);
         
         return Ok();
     }

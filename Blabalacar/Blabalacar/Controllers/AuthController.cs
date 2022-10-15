@@ -66,7 +66,7 @@ public class AuthController : Controller
     } 
 
     [HttpPost("login")]
-    public async Task<ActionResult<string>> Login(RegisterUserDto request, CancellationToken cancellationToken=default)
+    public async Task<ActionResult<TokenResponse>> Login(RegisterUserDto request, CancellationToken cancellationToken=default)
     {
         if (!ModelState.IsValid)
             return BadRequest();
@@ -91,7 +91,7 @@ public class AuthController : Controller
         SetCacheRefreshToken(user.Id, user.RefreshToken);
 
         var tokens = new TokenResponse(accessToken, user.RefreshToken);
-        return Ok(JsonConvert.SerializeObject(tokens));
+        return Ok((tokens));
     }
     
 
@@ -100,24 +100,23 @@ public class AuthController : Controller
         CancellationToken cancellationToken = default)
     {
         var currentUserId = new Guid(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
-       
 
-        string currentRefreshToken;
-        if (!_memoryCache.TryGetValue(currentUserId, out currentRefreshToken))
+        User? currentUser;
+        if (!_memoryCache.TryGetValue(currentUserId, out currentUser))
         {
-            currentRefreshToken = await _userRepository.GetRefreshToken(currentUserId, cancellationToken);
-            SetCacheRefreshToken(currentUserId, currentRefreshToken);
+            currentUser = await _userRepository.GetById(currentUserId, cancellationToken);
+            SetCacheRefreshToken(currentUserId, currentUser.RefreshToken);
         }
 
-        var currentUser = await _userRepository.GetById(currentUserId, cancellationToken);
-        if (currentRefreshToken != refreshToken)
+
+        if (currentUser.RefreshToken != refreshToken)
             return BadRequest("Incorrect refresh token");
 
 
         _registerUserService.SetRefreshToken(currentUser);
         await _userRepository.Save(cancellationToken);
 
-        SetCacheRefreshToken(currentUserId, currentRefreshToken);
+        SetCacheRefreshToken(currentUserId, currentUser.RefreshToken);
 
         var accessToken = _registerUserService.CreateAccessToken(currentUser, _configuration);
         var tokens = new TokenResponse(accessToken, refreshToken);

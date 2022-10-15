@@ -7,7 +7,7 @@ namespace Blabalacar.Service.TripService;
 
 public class TripService:ITripService
 {
-    public Trip CreateTrip(CreateTripBody trip, Route route)
+    public Trip? CreateTrip(CreateTripBody trip, Route route)
     {
         return new Trip{Id = new Guid(), RouteId = route.Id, Route = route,
             DepartureAt = trip.DepartureAt};;
