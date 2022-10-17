@@ -1,0 +1,42 @@
+<table class="table table-striped">
+  <thead>
+
+  <tr>
+    <th scope="col">Name</th>
+    <th scope="col">Role</th>
+    <th scope="col">CreateAt</th>
+  </tr>
+  </thead>
+
+  <tbody>
+    <td>{{ user.name }}</td>
+    <td>{{ user.role | number}}</td>
+    <td>{{ user.userCreatedAt}}</td>
+
+    <td>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">start route</th>
+          <th scope="col">end route</th>
+          <th scope="col">departure at</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let current_trip of trips; index as i">
+          <td>{{ current_trip.route.startRoute }}</td>
+          <td>{{ current_trip.route.endRoute }}</td>
+          <td>{{ current_trip.departureAt }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </td>
+
+  </tbody>
+
+  <button (click)="editUser(user)">Edit</button>
+
+
+</table>
+
+<app-edit-current-user *ngIf="isEditIcon" [user]="userToEdit"></app-edit-current-user>

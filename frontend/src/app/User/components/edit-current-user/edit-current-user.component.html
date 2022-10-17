@@ -1,0 +1,9 @@
+<div *ngIf="user">
+  <div>
+    Name:
+    <input [(ngModel)]="user.name" placeholder="Name">
+  </div>
+
+  <button (click)="updateUser(user)" *ngIf="user.id">Save</button>
+
+</div>

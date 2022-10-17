@@ -1,0 +1,38 @@
+<nav class="navbar navbar-light">
+  <div class="container">
+    <a class="navbar-brand">Blablacar</a>
+    <ul class="nav navbar-nav ">
+
+      <ng-container *ngIf="isLoggedIn" class="is-logged-in">
+
+        <li class="nav-item">
+          <a [routerLink]="['/trips']" class="nav-link">trips</a>
+        </li>
+
+        <li class="nav-item">
+          <a [routerLink]="['/all-users']" class="nav-link">users</a>
+        </li>
+
+        <li class="nav-item">
+          <a [routerLink]="['/current-user']" class="nav-link">current user</a>
+        </li>
+
+      </ng-container>
+
+      <ng-container class="is-anonymous">
+        <li class="nav-item">
+          <a [routerLink]="['/login']" class="nav-link">
+            Sign In
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a [routerLink]="['/register']" class="nav-link">
+            Sign Up
+          </a>
+        </li>
+
+      </ng-container>
+    </ul>
+  </div>
+</nav>

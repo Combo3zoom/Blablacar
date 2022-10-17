@@ -1,0 +1,44 @@
+<form>
+  <div class="mb-3 row">
+    <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
+    <div class="col-xs-3 col-sm-auto">
+      <input id="table-filtering-search" class="form-control" type="text" [formControl]="filter">
+    </div>
+  </div>
+</form>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Start route</th>
+    <th scope="col">End route</th>
+    <th scope="col">Departure at</th>
+    <th scope="col">Create at</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let trip of trips; index as i">
+    <th scope="row">{{ i + 1 }}</th>
+    <td>{{ trip.route.startRoute }}</td>
+    <td>{{ trip.route.endRoute}}</td>
+    <td>{{ trip.departureAt}}</td>
+    <td>{{ trip.tripCreatedAt}}</td>
+  </tr>
+
+  </tbody>
+</table>
+
+<form [formGroup]="form" (ngSubmit)="joinToTrip()">
+  <fieldset>
+    <fieldset class="from-group">
+      <input type="text"
+             class="form-control form-control-lg"
+             placeholder="number"
+             formControlName="number">
+    </fieldset>
+
+    <button class="btn btn-lg btn-primary pull-xs-right" type="submit"  [disabled]="!form.valid">Join to the trip</button>
+
+  </fieldset>
+</form>
