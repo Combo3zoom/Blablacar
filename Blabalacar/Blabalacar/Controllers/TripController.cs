@@ -1,8 +1,12 @@
+using System.Security.Claims;
 using Blabalacar.Database;
 using Blabalacar.Models;
 using Blabalacar.Database;
 using Blabalacar.Models;
+using Blabalacar.Models.Entities.Trip;
 using Blabalacar.Repository;
+using Blabalacar.Service;
+using Blabalacar.Service.TripService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,23 +18,30 @@ namespace Blabalacar.Controllers;
 [Authorize]
 public class TripController : Controller
 {
-    private readonly IRepository<Trip, Guid> _tripRepository;
+    private readonly IRepository<Trip?, Guid> _tripRepository;
     private readonly IHttpContextAccessor _httpContextAccessor;
-    private Guid GetNextId() => new Guid();
+    private readonly ITripService _tripService;
+    private readonly IUserRepository<UserTrip, Guid> _userRepository;
+    private readonly IUserService _userService;
 
-    public TripController(IRepository<Trip, Guid> tripRepository, IHttpContextAccessor httpContextAccessor)
+    public TripController(IRepository<Trip?, Guid> tripRepository, IHttpContextAccessor httpContextAccessor,
+        ITripService tripService, IUserRepository<UserTrip,Guid> userRepository, IUserService userService)
     {
         _tripRepository = tripRepository;
         _httpContextAccessor = httpContextAccessor;
+        _tripService = tripService;
+        _userRepository = userRepository;
+        _userService = userService;
     }
 
     [HttpGet, AllowAnonymous]
-    public async Task<IEnumerable<Trip>> Get() => await _tripRepository.GetAll().ConfigureAwait(false);
+    public  Task<IEnumerable<Trip?>> GetTrips(CancellationToken cancellationToken=default)
+        =>  _tripRepository.GetAll(cancellationToken);
 
     [HttpGet("{id:Guid}"), AllowAnonymous]
-    public async Task<IActionResult> Get(Guid id)
+    public async Task<IActionResult> GetTripById(Guid id, CancellationToken cancellationToken=default)
     {
-        var trip = _tripRepository.GetById(id).Result;
+        var trip = await _tripRepository.GetById(id, cancellationToken);
         if (trip == null)
             return NotFound();
         
@@ -38,51 +49,58 @@ public class TripController : Controller
     } 
 
     [HttpPost]
-    public async Task<IActionResult> Post(CreateTripBody createTripBody)
+    public async Task<IActionResult> CreateTrip(CreateTripBody createTripBody,
+        CancellationToken cancellationToken=default)
     {
+        var currentUserId = new Guid(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
+        var currentUser = await _userRepository.GetById(currentUserId, cancellationToken);
+        
         if (!ModelState.IsValid)
             return NotFound();
+
+        var route = _tripService.CreateRoute(createTripBody);
+        var trip = _tripService.CreateTrip(createTripBody, route);
         
-        var nextIdTrip = GetNextId();
-        var route = new Route(nextIdTrip, createTripBody.StartRoute, createTripBody.EndRoute);
-        var trip = new Trip(nextIdTrip, route.Id, route, createTripBody.DepartureAt);
         trip.Route.Trips!.Add(trip);
         
-        await _tripRepository.Insert(trip).ConfigureAwait(false);
-        await _tripRepository.Save().ConfigureAwait(false);
+        var userTrip = _userService.CreateUserTrip(currentUser, trip);
+        currentUser.UserTrips!.Add(userTrip);
+        trip.UserTrips!.Add(userTrip);
         
-        return CreatedAtAction(nameof(Get), new {id = trip.Id}, trip);
+        await _tripRepository.Insert(trip,cancellationToken);
+        await _tripRepository.Save(cancellationToken);
+        
+        return CreatedAtAction(nameof(GetTrips), new {id = trip.Id}, trip);
     }
 
     [HttpPut]
-    public async Task<IActionResult> Put(Trip trip)
+    public async Task<IActionResult> PutTrip(UpdateTripBody newTrip, CancellationToken cancellationToken=default)
     {
+
         if (!ModelState.IsValid)
             return BadRequest();
         
-        var changedtrip = _tripRepository.GetById(trip.Id).Result;
-        if (changedtrip == null)
+        var currentTrip = await _tripRepository.GetById(newTrip.Id, cancellationToken);
+        if (currentTrip == null)
             return NotFound();
+
+        _tripService.UpdateTrip(currentTrip, newTrip);
         
-        changedtrip.Route.StartRoute = trip.Route.StartRoute;
-        changedtrip.Route.EndRoute = trip.Route.EndRoute;
-        changedtrip.DepartureAt = trip.DepartureAt;
-        changedtrip.UserTrips = trip.UserTrips;
         
-        await _tripRepository.Save().ConfigureAwait(false);
+        await _tripRepository.Save(cancellationToken);
         
-        return Ok(changedtrip);
+        return Ok(currentTrip);
     }
 
     [HttpDelete("{id:Guid}")]
-    public async Task<IActionResult> Delete(Guid id)
+    public async Task<IActionResult> DeleteTrip(Guid id, CancellationToken cancellationToken=default)
     {
-        var deleteTrip = _tripRepository.GetById(id).Result;
+        var deleteTrip = await _tripRepository.GetById(id,cancellationToken);
         if (deleteTrip == null)
             return BadRequest();
         
-        await _tripRepository.Delete(deleteTrip).ConfigureAwait(false);
-        await _tripRepository.Save().ConfigureAwait(false);;
+        await _tripRepository.Delete(deleteTrip, cancellationToken);
+        await _tripRepository.Save(cancellationToken);;
         
         return Ok();
     }
