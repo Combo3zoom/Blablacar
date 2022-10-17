@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Blabalacar.Migrations
 {
-    [DbContext(typeof(BlalacarContext))]
+    [DbContext(typeof(BlablacarContext))]
     [Migration("20220921201505_Init")]
     partial class Init
     {

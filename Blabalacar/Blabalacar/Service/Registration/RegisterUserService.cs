@@ -3,48 +3,35 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using Blabalacar.Models;
 using Blabalacar.Models.Auto;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Blabalacar.Service;
 
 public class RegisterUserService:IRegisterUserService
 {
+    private readonly IMemoryCache _memoryCache;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public RegisterUserService(IHttpContextAccessor httpContextAccessor)
+    public RegisterUserService(IMemoryCache memoryCache, IHttpContextAccessor httpContextAccessor)
     {
+        _memoryCache = memoryCache;
         _httpContextAccessor = httpContextAccessor;
     }
     public string GetId()
     {
         var result = string.Empty;
         result = _httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier);
-        
         return result;
     }
-    public void SetRefreshToken(User user)
+    public void SetRefreshToken(Models.User? user)
     {
-        var newRefreshToken = new RefreshToken // create refresh token
-        {
-            Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
-            Created = DateTime.Now,
-            Expires = DateTime.Now.AddMinutes(300)
-        };
-
-        var cookieOptions = new CookieOptions //option cookies
-        {
-            HttpOnly = true,
-            Expires = newRefreshToken.Expires
-        };
-
-        _httpContextAccessor.HttpContext!.Response.Cookies.Append("refreshToken", newRefreshToken.Token, cookieOptions); // add cookies 
-        
-        user.RefreshToken = newRefreshToken.Token;
-        user.TokenCreated = newRefreshToken.Created;
-        user.TokenExpires = newRefreshToken.Expires;
+        user.RefreshToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
+        user.RefreshTokenCreatedAt = DateTime.Now;
+        user.RefreshTokenExpiresAt = DateTime.Now.AddMinutes(300);
     }
 
-    public string CreateAccessToken(User registerUser, IConfiguration _configuration)
+    public string CreateAccessToken(Models.User? registerUser, IConfiguration _configuration)
     {
         var claims = new List<Claim>
         {
@@ -63,4 +50,6 @@ public class RegisterUserService:IRegisterUserService
         
         return jwt;
     }
+
+
 }

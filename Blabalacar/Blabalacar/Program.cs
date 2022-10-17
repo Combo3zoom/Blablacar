@@ -5,40 +5,48 @@ using Blabalacar.Database;
 using Blabalacar.Models;
 using Blabalacar.Repository;
 using Blabalacar.Service;
+using Blabalacar.Service.TripService;
+using Blabalacar.Service.User;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using  Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<IRegisterUserService, RegisterUserService>();
+builder.Services.AddScoped<ITripService, TripService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.TryAdd(ServiceDescriptor.Singleton<IMemoryCache, MemoryCache>());
 builder.Services.AddHttpContextAccessor();
 
-//add repository object
+
 builder.Services.AddScoped<IUserRepository<UserTrip, Guid>, UserRepository>();
 builder.Services.AddScoped<IRepository<Trip, Guid>, TripRepository>();
 
-builder.Services.AddSwaggerGen(options => // option swagger
+
+builder.Services.AddSwaggerGen(options =>
 {
     options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
     {
         Description = "Standart Authorization header using the Bearer scheme(\"bearer {token}\")",
         In = ParameterLocation.Header,
         Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey//?
+        Type = SecuritySchemeType.ApiKey
     });
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme) // option authentication
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme) 
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
@@ -46,31 +54,47 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme) // op
             ValidateIssuerSigningKey = true,
             IssuerSigningKey =
                 new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("JWT:Key").Value)),
-            ValidateIssuer = false,//той хто видає
-            ValidateAudience = false//той хто користується
+            ValidateIssuer = false,
+            ValidateAudience = false
         };
     });
+
 builder.Services.AddIdentity<User, ApplicationRole>()
-    .AddEntityFrameworkStores<BlalacarContext>();
-builder.Services.AddDbContext<BlalacarContext>();// передає у конктруктор наш контекст
+    .AddEntityFrameworkStores<BlablacarContext>();
+builder.Services.AddDbContext<BlablacarContext>();
 builder.Services.AddControllersWithViews()
     .AddNewtonsoftJson(options =>
         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
     );
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+    options.Cookie.HttpOnly = false;
+    options.Cookie.SameSite = SameSiteMode.None;
+    options.Events.OnRedirectToLogin = context =>
+    {
+        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+        return Task.CompletedTask;
+    };
+});
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-//app.UseHttpsRedirection();
+app.UseCors(policy =>
+{
+    policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+});
 
 app.UseAuthentication(); 
-app.UseAuthorization();  
+app.UseAuthorization();
 
 app.MapControllers();
 
