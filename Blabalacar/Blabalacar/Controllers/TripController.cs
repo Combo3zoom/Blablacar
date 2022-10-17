@@ -63,7 +63,7 @@ public class TripController : Controller
         
         trip.Route.Trips!.Add(trip);
         
-        var userTrip = _userService.FoundUserTrip(currentUser, trip);
+        var userTrip = _userService.CreateUserTrip(currentUser, trip);
         currentUser.UserTrips!.Add(userTrip);
         trip.UserTrips!.Add(userTrip);
         

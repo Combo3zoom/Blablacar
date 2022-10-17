@@ -22,12 +22,10 @@ public class UserService:IUserService
     
     public void AdminUpdateUser(Models.User changeUser, AdminUpdateUserBody user)
     {
-        changeUser.Name = user.Name;
-        changeUser.Role = user.Role;
         user.IsVerification = user.IsVerification;
     }
 
-    public UserTrip FoundUserTrip(Models.User? user, Trip? trip)
+    public UserTrip CreateUserTrip(Models.User? user, Trip? trip)
     {
         return new UserTrip{User = user, UserId = user.Id, Trip = trip, TripId = trip.Id};
     }

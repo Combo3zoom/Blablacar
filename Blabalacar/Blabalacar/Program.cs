@@ -67,11 +67,17 @@ builder.Services.AddControllersWithViews()
         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
     );
 
-builder.Services.AddCors(options =>options.AddPolicy(name:"MyPolicy",
-    policy =>
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+    options.Cookie.HttpOnly = false;
+    options.Cookie.SameSite = SameSiteMode.None;
+    options.Events.OnRedirectToLogin = context =>
     {
-        policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
-    }));
+        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+        return Task.CompletedTask;
+    };
+});
 
 var app = builder.Build();
 
@@ -82,12 +88,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseCors(policy =>
+{
+    policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+});
 
 app.UseAuthentication(); 
-app.UseAuthorization();  
-
-app.UseCors("MyPolicy");
+app.UseAuthorization();
 
 app.MapControllers();
 

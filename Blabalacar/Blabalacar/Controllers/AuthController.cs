@@ -85,8 +85,8 @@ public class AuthController : Controller
 
         var accessToken = _registerUserService.CreateAccessToken(user, _configuration);
         _registerUserService.SetRefreshToken(user);
-        await _userRepository.Save(cancellationToken);
         
+        await _userRepository.Save(cancellationToken);
 
         SetCacheRefreshToken(user.Id, user.RefreshToken);
 
